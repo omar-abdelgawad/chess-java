@@ -1,7 +1,3 @@
-## Getting Started
-
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
-
 ## Folder Structure
 
 The workspace contains two folders by default, where:
@@ -16,3 +12,18 @@ Meanwhile, the compiled output files will be generated in the `bin` folder by de
 ## Dependency Management
 
 The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+
+## TODOS
+
+- [ ] Design the class structure.
+- [ ] Develop the GUI using Swing and Awt.
+- [ ] Implement all Chess rules.
+- [ ] Document the project in ReadMe and GitHub pages.
+- [ ] Write Unit tests using a testing framework.
+- [ ] Package into a jar file.
+
+## Extra-TODOS
+
+- [ ] Save game status for player.
+- [ ] Develop a chess engine using PyTorch.
+- [ ] Create a webapp for the game.
