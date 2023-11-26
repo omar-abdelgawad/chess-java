@@ -3,6 +3,7 @@ package user_interface;
 import java.awt.Color;
 import java.awt.GridLayout;
 
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
@@ -15,8 +16,10 @@ public class ChessPanel extends JPanel {
 
     public ChessPanel() {
         super();
-        this.setBackground(Color.red);
+        // this.setBackground(Color.red);
         setLayout(new GridLayout(8, 8));
+        // JLabel label = new JLabel("label my ass");
+        // add(label);
         tileManager = new TileManager(this);
     }
 }
