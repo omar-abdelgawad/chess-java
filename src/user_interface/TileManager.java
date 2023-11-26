@@ -28,8 +28,10 @@ public class TileManager {
         try {
             tiles[0] = new Tile();
             tiles[0].image = ImageIO.read(new File("res/tile/square/teez1.png"));
+            System.out.println(tiles[0].image);
             tiles[1] = new Tile();
             tiles[1].image = ImageIO.read(new File("res/tile/square/teez2.png"));
+            System.out.println("try block");
         } catch (IOException e) {
             System.out.println("You have fucked up in image loading");
         }

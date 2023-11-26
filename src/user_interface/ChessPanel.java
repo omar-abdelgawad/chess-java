@@ -15,7 +15,7 @@ public class ChessPanel extends JPanel {
 
     public ChessPanel() {
         super();
-        this.setBackground(Color.black);
+        this.setBackground(Color.red);
         setLayout(new GridLayout(8, 8));
         tileManager = new TileManager(this);
     }
