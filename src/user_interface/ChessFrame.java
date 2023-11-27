@@ -1,5 +1,7 @@
 package user_interface;
 
+import java.awt.Dimension;
+
 import javax.swing.JFrame;
 
 // import Board;
@@ -9,6 +11,8 @@ import javax.swing.JFrame;
  */
 public class ChessFrame extends JFrame {
     // private Board chessBoard;
+    private static final int width = 800;
+    private static final int height = width;
     private BoardPanel boardPanel;
 
     public ChessFrame() {
@@ -18,7 +22,7 @@ public class ChessFrame extends JFrame {
         add(boardPanel);
         System.out.println("boardPanel has been added");
 
-        setSize(800, 800);
+        setMinimumSize(new Dimension(width, height));
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
