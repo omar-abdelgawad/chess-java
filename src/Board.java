@@ -1,7 +1,0 @@
-
-/**
- * Board
- */
-public class Board {
-
-}

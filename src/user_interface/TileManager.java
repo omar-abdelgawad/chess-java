@@ -16,11 +16,11 @@ import javax.swing.JLabel;
  */
 public class TileManager {
 
-    ChessPanel chessPanel;
+    BoardPanel boardPanel;
     Tile[] tiles;
 
-    public TileManager(ChessPanel chessPanel) {
-        this.chessPanel = chessPanel;
+    public TileManager(BoardPanel boardPanel) {
+        this.boardPanel = boardPanel;
         tiles = new Tile[2];
         getTileImage();
         draw();
@@ -40,12 +40,12 @@ public class TileManager {
 
     public void draw() {
         System.out.println("draw method activated");
-        for (int i = 0; i < chessPanel.rows; i++) {
-            for (int j = 0; j < chessPanel.cols; j++) {
+        for (int i = 0; i < boardPanel.rows; i++) {
+            for (int j = 0; j < boardPanel.cols; j++) {
                 int tilenum = (i + j) % 2;
-                // add the image at tiles[tilenum] to the chessPanel grid layout
+                // add the image at tiles[tilenum] to the boardPanel grid layout
                 ImageIcon icon = new ImageIcon(tiles[tilenum].path);
-                chessPanel.add(new JLabel(icon));
+                boardPanel.add(new JLabel(icon));
             }
         }
     }

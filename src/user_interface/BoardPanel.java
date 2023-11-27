@@ -1,25 +1,21 @@
 package user_interface;
 
-import java.awt.Color;
 import java.awt.GridLayout;
 
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
- * ChessPanel
+ * BoardPanel
  */
-public class ChessPanel extends JPanel {
+public class BoardPanel extends JPanel {
     public final static int rows = 8;
     public final static int cols = 8;
     private TileManager tileManager;
 
-    public ChessPanel() {
+    public BoardPanel() {
         super();
         // this.setBackground(Color.red);
-        setLayout(new GridLayout(8, 8));
-        // JLabel label = new JLabel("label my ass");
-        // add(label);
+        setLayout(new GridLayout(rows, cols));
         tileManager = new TileManager(this);
     }
 }

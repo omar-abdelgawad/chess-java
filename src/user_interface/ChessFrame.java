@@ -9,14 +9,14 @@ import javax.swing.JFrame;
  */
 public class ChessFrame extends JFrame {
     // private Board chessBoard;
-    private ChessPanel chessPanel;
+    private BoardPanel boardPanel;
 
     public ChessFrame() {
         super("Chess");
-        chessPanel = new ChessPanel();
-        System.out.println(chessPanel.getComponents()[0]);
-        add(chessPanel);
-        System.out.println("ChessPanel has been added");
+        boardPanel = new BoardPanel();
+        System.out.println(boardPanel.getComponents()[0]);
+        add(boardPanel);
+        System.out.println("boardPanel has been added");
 
         setSize(800, 800);
         setLocationRelativeTo(null);

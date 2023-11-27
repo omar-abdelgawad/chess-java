@@ -6,9 +6,14 @@ public class ChessGame {
 
     public static void main(String[] args) throws Exception {
         ChessGame game = new ChessGame();
+        game.run();
     }
 
     ChessGame() {
         chessFrame = new ChessFrame();
+    }
+
+    void run() {
+        ;
     }
 }
