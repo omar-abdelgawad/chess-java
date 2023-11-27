@@ -24,6 +24,7 @@ public class BoardPanel extends JPanel {
         // tileManager = new TileManager(this);
     }
 
+    @Override
     public void paintComponent(Graphics g) {
         Graphics2D g2 = (Graphics2D) g;
 
