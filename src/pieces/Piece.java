@@ -12,6 +12,8 @@ public abstract class Piece {
     public int col;
     public PieceColor color;
     public boolean hasMoved;
+    public Piece(){
+    }
 
     public Piece(int row, int col, PieceColor color) {
         this.row = row;
