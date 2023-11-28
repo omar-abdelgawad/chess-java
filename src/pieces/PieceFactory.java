@@ -24,22 +24,23 @@ public class PieceFactory {
         // res/tile/black/b_queen_1x_ns.png
         // res/tile/black/b_rook_1x_ns.png
     }
+    // scale all of the images in the future
+    private static ImageIcon w_bishop = new ImageIcon("res/tile/white/w_bishop_1x_ns.png");
+    private static ImageIcon w_king = new ImageIcon("res/tile/white/w_king_1x_ns.png");
+    private static ImageIcon w_knight = new ImageIcon("res/tile/white/w_knight_1x_ns.png");
+    private static ImageIcon w_pawn = new ImageIcon("res/tile/white/w_pawn_1x_ns.png");
+    private static ImageIcon w_queen = new ImageIcon("res/tile/white/w_queen_1x_ns.png");
+    private static ImageIcon w_rook = new ImageIcon("res/tile/white/w_rook_1x_ns.png");
+    private static ImageIcon b_bishop = new ImageIcon("res/tile/black/b_bishop_1x_ns.png");
+    private static ImageIcon b_king = new ImageIcon("res/tile/black/b_king_1x_ns.png");
+    private static ImageIcon b_knight = new ImageIcon("res/tile/black/b_knight_1x_ns.png");
+    private static ImageIcon b_pawn = new ImageIcon("res/tile/black/b_pawn_1x_ns.png");
+    private static ImageIcon b_queen = new ImageIcon("res/tile/black/b_queen_1x_ns.png");
+    private static ImageIcon b_rook = new ImageIcon("res/tile/black/b_rook_1x_ns.png");
 
     public static Piece createPiece(int row, int col, Piece.PieceColor color, BoardPanel boardPanel,
             Piece.PieceType type) {
-        // scale all of the images in the future
-        ImageIcon w_bishop = new ImageIcon("res/tile/white/w_bishop_1x_ns.png");
-        ImageIcon w_king = new ImageIcon("res/tile/white/w_king_1x_ns.png");
-        ImageIcon w_knight = new ImageIcon("res/tile/white/w_knight_1x_ns.png");
-        ImageIcon w_pawn = new ImageIcon("res/tile/white/w_pawn_1x_ns.png");
-        ImageIcon w_queen = new ImageIcon("res/tile/white/w_queen_1x_ns.png");
-        ImageIcon w_rook = new ImageIcon("res/tile/white/w_rook_1x_ns.png");
-        ImageIcon b_bishop = new ImageIcon("res/tile/black/b_bishop_1x_ns.png");
-        ImageIcon b_king = new ImageIcon("res/tile/black/b_king_1x_ns.png");
-        ImageIcon b_knight = new ImageIcon("res/tile/black/b_knight_1x_ns.png");
-        ImageIcon b_pawn = new ImageIcon("res/tile/black/b_pawn_1x_ns.png");
-        ImageIcon b_queen = new ImageIcon("res/tile/black/b_queen_1x_ns.png");
-        ImageIcon b_rook = new ImageIcon("res/tile/black/b_rook_1x_ns.png");
+
         System.out.println(type);
         switch (type) {
             case PAWN:
