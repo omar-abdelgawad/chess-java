@@ -1,10 +1,12 @@
 package user_interface;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.util.HashMap;
 
 import javax.swing.ImageIcon;
@@ -38,6 +40,35 @@ public class BoardPanel extends JPanel {
         labels = new JLabel[rows][cols];
         initialize_board();
         drawBoard();
+    }
+
+    public void swapTwoPieces(int firstRow, int firstCol, int secondRow, int secondCol) {
+        Piece first = board[firstRow][firstCol];
+        Piece second = board[secondRow][secondCol];
+        board[firstRow][firstCol] = second;
+        board[secondRow][secondCol] = first;
+        swapTwoLabelsInPanel(getLinearIndex(firstRow, firstCol), getLinearIndex(secondRow, secondCol));
+    }
+
+    private int getLinearIndex(int row, int col) {
+        return row * cols + col;
+    }
+
+    private void swapTwoLabelsInPanel(int firstIndex, int secondIndex) {
+        if (firstIndex < 0 || firstIndex >= rows * cols || secondIndex < 0 || secondIndex >= rows * cols) {
+            throw new IndexOutOfBoundsException();
+        } else if (firstIndex == secondIndex) {
+            System.out.println("firstIndex == secondIndex");
+            throw new IllegalArgumentException();
+        }
+        Component first = getComponent(firstIndex);
+        Component second = getComponent(secondIndex);
+        remove(first);
+        remove(second);
+        add(second, firstIndex);
+        add(first, secondIndex);
+        // revalidate();
+        // repaint();
     }
 
     public void initialize_board() {
@@ -75,24 +106,15 @@ public class BoardPanel extends JPanel {
         for (int r = 0; r < rows; r++) {
             for (int c = 0; c < cols; c++) {
                 ImageIcon icon = board[r][c].icon;
-                // resize ImageIcon to fit tile
                 if (icon != null)
                     icon = new ImageIcon(
-                            icon.getImage().getScaledInstance(tileSize, tileSize, java.awt.Image.SCALE_SMOOTH));
+                            icon.getImage().getScaledInstance(tileSize, tileSize, Image.SCALE_SMOOTH));
                 labels[r][c] = new JLabel(icon);
                 add(labels[r][c]);
             }
         }
         // revalidate();
         // repaint();
-    }
-
-    public Piece getPiece(int row, int col) {
-        return board[row][col];
-    }
-
-    public void setPiece(Piece piece, int row, int col) {
-        board[row][col] = piece;
     }
 
     @Override
