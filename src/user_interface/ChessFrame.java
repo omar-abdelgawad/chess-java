@@ -12,7 +12,6 @@ import javax.swing.JFrame;
  * ChessFrame class that extends JFrame
  */
 public class ChessFrame extends JFrame {
-    // private Board chessBoard;
     private static final int width = 1000;
     private static final int height = width;
     private BoardPanel boardPanel;

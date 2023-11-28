@@ -1,12 +1,18 @@
 package pieces;
 
+import user_interface.BoardPanel;
+
 /**
  * Pawn
  * TODO: implement En Passant
  */
 public class Pawn extends Piece {
-    public Boolean isValidMove(int row,int col){
-        if ()
+    public Pawn(int row, int col, PieceColor color, BoardPanel boardPanel, PieceType type) {
+        super(row, col, color, boardPanel, type);
+    }
+
+    public Boolean isValidMove(int row, int col) {
+        return false;
     }
 
 }
