@@ -1,13 +1,17 @@
 package pieces;
 
+import java.awt.Image;
+
+import javax.swing.ImageIcon;
+
 import user_interface.BoardPanel;
 
 /**
  * Bishop
  */
 public class Bishop extends Piece {
-    public Bishop(int row, int col, PieceColor color, BoardPanel boardPanel, PieceType type) {
-        super(row, col, color, boardPanel, type);
+    public Bishop(int row, int col, PieceColor color, BoardPanel boardPanel, PieceType type, ImageIcon icon) {
+        super(row, col, color, boardPanel, type, icon);
     }
 
     public boolean isValidMove(int row, int col) {

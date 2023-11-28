@@ -1,5 +1,7 @@
 package pieces;
 
+import javax.swing.ImageIcon;
+
 import user_interface.BoardPanel;
 
 /**
@@ -21,13 +23,15 @@ public abstract class Piece {
     public PieceType type;
     public BoardPanel boardPanel;
     public boolean hasMoved = false;
+    public ImageIcon icon;
 
-    public Piece(int row, int col, PieceColor color, BoardPanel boardPanel, PieceType type) {
+    public Piece(int row, int col, PieceColor color, BoardPanel boardPanel, PieceType type, ImageIcon icon) {
         this.row = row;
         this.col = col;
         this.color = color;
         this.boardPanel = boardPanel;
         this.type = type;
+        this.icon = icon;
     }
 
     public Piece(int row, int col, PieceType type) {

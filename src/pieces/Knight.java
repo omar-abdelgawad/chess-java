@@ -1,13 +1,15 @@
 package pieces;
 
+import javax.swing.ImageIcon;
+
 import user_interface.BoardPanel;
 
 /**
  * Knight
  */
 public class Knight extends Piece {
-    public Knight(int row, int col, PieceColor color, BoardPanel boardPanel, PieceType type) {
-        super(row, col, color, boardPanel, type);
+    public Knight(int row, int col, PieceColor color, BoardPanel boardPanel, PieceType type, ImageIcon icon) {
+        super(row, col, color, boardPanel, type, icon);
     }
 
     public boolean isValidMove(int row, int col) {

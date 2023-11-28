@@ -1,5 +1,7 @@
 package pieces;
 
+import javax.swing.ImageIcon;
+
 import user_interface.BoardPanel;
 
 /**
@@ -7,8 +9,8 @@ import user_interface.BoardPanel;
  * TODO: implement castling
  */
 public class King extends Piece {
-    public King(int row, int col, PieceColor color, BoardPanel boardPanel, PieceType type) {
-        super(row, col, color, boardPanel, type);
+    public King(int row, int col, PieceColor color, BoardPanel boardPanel, PieceType type, ImageIcon icon) {
+        super(row, col, color, boardPanel, type, icon);
     }
 
     public boolean isValidMove(int row, int col) {
