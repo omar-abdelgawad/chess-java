@@ -1,7 +1,5 @@
 package pieces;
 
-import java.awt.Image;
-
 import javax.swing.ImageIcon;
 
 import user_interface.BoardPanel;
@@ -29,6 +27,7 @@ public class PieceFactory {
 
     public static Piece createPiece(int row, int col, Piece.PieceColor color, BoardPanel boardPanel,
             Piece.PieceType type) {
+        // scale all of the images in the future
         ImageIcon w_bishop = new ImageIcon("res/tile/white/w_bishop_1x_ns.png");
         ImageIcon w_king = new ImageIcon("res/tile/white/w_king_1x_ns.png");
         ImageIcon w_knight = new ImageIcon("res/tile/white/w_knight_1x_ns.png");
@@ -41,6 +40,7 @@ public class PieceFactory {
         ImageIcon b_pawn = new ImageIcon("res/tile/black/b_pawn_1x_ns.png");
         ImageIcon b_queen = new ImageIcon("res/tile/black/b_queen_1x_ns.png");
         ImageIcon b_rook = new ImageIcon("res/tile/black/b_rook_1x_ns.png");
+        System.out.println(type);
         switch (type) {
             case PAWN:
                 ImageIcon b_or_w_pawn = color == Piece.PieceColor.WHITE ? w_pawn : b_pawn;

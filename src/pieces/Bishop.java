@@ -1,7 +1,5 @@
 package pieces;
 
-import java.awt.Image;
-
 import javax.swing.ImageIcon;
 
 import user_interface.BoardPanel;

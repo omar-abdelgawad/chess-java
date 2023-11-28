@@ -7,6 +7,7 @@ import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.util.HashMap;
 
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -23,7 +24,10 @@ public class BoardPanel extends JPanel {
     public final int cols = 8;
     public final int tileSize = 100;
     private Piece[][] board;
-    private TileManager tileManager;
+    private JLabel[][] labels;
+    // private PieceColor turn;
+    // private Piece selectedPiece;
+    // private TileManager tileManager;
 
     public BoardPanel() {
         setPreferredSize(new Dimension(cols * tileSize, rows * tileSize));
@@ -31,6 +35,7 @@ public class BoardPanel extends JPanel {
         setLayout(new GridLayout(rows, cols));
         // tileManager = new TileManager(this);
         board = new Piece[rows][cols];
+        labels = new JLabel[rows][cols];
         initialize_board();
         drawBoard();
     }
@@ -52,29 +57,34 @@ public class BoardPanel extends JPanel {
         pieceMap.put("Q", PieceType.QUEEN);
         pieceMap.put("K", PieceType.KING);
         pieceMap.put("P", PieceType.PAWN);
+        pieceMap.put(" ", PieceType.EMPTY);
         assert mockBoard.length == rows;
         assert mockBoard[0].length == cols;
         for (int i = 0; i < mockBoard.length; i++) {
             for (int j = 0; j < mockBoard[i].length; j++) {
                 PieceColor color = Character.isUpperCase(mockBoard[i][j].charAt(0)) ? PieceColor.BLACK
                         : PieceColor.WHITE;
-                board[i][j] = PieceFactory.createPiece(i, j, color, this, pieceMap.get(mockBoard[i][j]));
+                board[i][j] = PieceFactory.createPiece(i, j, color, this, pieceMap.get(mockBoard[i][j].toUpperCase()));
             }
         }
 
     }
 
     public void drawBoard() {
-        removeAll();
-        // JLabel label = new JLabel();
+        // removeAll();
         for (int r = 0; r < rows; r++) {
             for (int c = 0; c < cols; c++) {
-                JLabel label = new JLabel(board[r][c].icon);
-                add(label);
+                ImageIcon icon = board[r][c].icon;
+                // resize ImageIcon to fit tile
+                if (icon != null)
+                    icon = new ImageIcon(
+                            icon.getImage().getScaledInstance(tileSize, tileSize, java.awt.Image.SCALE_SMOOTH));
+                labels[r][c] = new JLabel(icon);
+                add(labels[r][c]);
             }
         }
-        revalidate();
-        repaint();
+        // revalidate();
+        // repaint();
     }
 
     public Piece getPiece(int row, int col) {
