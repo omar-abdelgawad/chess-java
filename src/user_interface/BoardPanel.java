@@ -50,6 +50,10 @@ public class BoardPanel extends JPanel {
         swapTwoLabelsInPanel(getLinearIndex(firstRow, firstCol), getLinearIndex(secondRow, secondCol));
     }
 
+    public Piece getPiece(int row, int col) {
+        return board[row][col];
+    }
+
     private int getLinearIndex(int row, int col) {
         return row * cols + col;
     }
@@ -71,7 +75,7 @@ public class BoardPanel extends JPanel {
         // repaint();
     }
 
-    public void initialize_board() {
+    private void initialize_board() {
         String[][] mockBoard = {
                 { "R", "N", "B", "Q", "K", "B", "N", "R" },
                 { "P", "P", "P", "P", "P", "P", "P", "P" },
@@ -101,7 +105,7 @@ public class BoardPanel extends JPanel {
 
     }
 
-    public void drawBoard() {
+    private void drawBoard() {
         // removeAll();
         for (int r = 0; r < rows; r++) {
             for (int c = 0; c < cols; c++) {
