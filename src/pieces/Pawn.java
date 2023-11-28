@@ -11,7 +11,7 @@ public class Pawn extends Piece {
         super(row, col, color, boardPanel, type);
     }
 
-    public Boolean isValidMove(int row, int col) {
+    public boolean isValidMove(int row, int col) {
         return false;
     }
 
