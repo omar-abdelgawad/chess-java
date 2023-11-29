@@ -16,6 +16,8 @@ import javax.swing.JPanel;
 
 import java.awt.event.MouseEvent;
 
+import utils.Pair;
+
 import pieces.EmptyPiece;
 import pieces.Piece;
 import pieces.PieceFactory;
@@ -48,6 +50,11 @@ public class BoardPanel extends JPanel {
         initialize_board();
         drawBoard();
         this.addMouseListener(new BoardListener(this));
+        Pair<Integer, Integer> legalMoves[] = new Pair[3];
+        legalMoves[0] = new Pair<Integer, Integer>(1, 1);
+        legalMoves[1] = new Pair<Integer, Integer>(1, 2);
+        legalMoves[2] = new Pair<Integer, Integer>(3, 3);
+        this.highlightMoves(legalMoves);
     }
 
     public Piece getPiece(int row, int col) {
@@ -86,6 +93,22 @@ public class BoardPanel extends JPanel {
         board[row2][col2] = board[row1][col1];
         board[row1][col1] = new EmptyPiece(row1, col1, PieceType.EMPTY);
         eatPiecesLabel(getLinearIndex(row1, col1), getLinearIndex(row2, col2));
+    }
+
+    public void highlightMoves(Pair<Integer, Integer> legalMoves[]) {
+        for (Pair<Integer, Integer> cord : legalMoves) {
+            int row = cord.getFirst();
+            int col = cord.getSecond();
+            Component label = getComponentAt(row * tileSize + 50, col * tileSize + 50);
+            System.out.println((row * 100 + 50) + " " + (col * 100 + 50));
+            JLabel labell = (JLabel) label;
+            System.out.println(labell);
+            // labell.setBackground(Color.red);
+            revalidate();
+
+            // g2d.setColor(Color.red);
+            // g2d.fillRect(row * tileSize, col * tileSize, tileSize, tileSize);
+        }
     }
 
     private void initialize_board() {
