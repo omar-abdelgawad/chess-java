@@ -47,16 +47,7 @@ public class BoardPanel extends JPanel {
         labels = new JLabel[rows][cols];
         initialize_board();
         drawBoard();
-        // swapTwoPieces(0, 0, 1, 1);
         this.addMouseListener(new BoardListener(this));
-    }
-
-    public void swapTwoPieces(int row1, int col1, int row2, int col2) {
-        Piece first = board[row1][col1];
-        Piece second = board[row2][col2];
-        board[row1][col1] = second;
-        board[row2][col2] = first;
-        swapTwoLabelsInPanel(getLinearIndex(row1, col1), getLinearIndex(row2, col2));
     }
 
     public Piece getPiece(int row, int col) {
@@ -64,24 +55,8 @@ public class BoardPanel extends JPanel {
     }
 
     private int getLinearIndex(int row, int col) {
+        System.out.println(row * cols + col + " ");
         return row * cols + col;
-    }
-
-    private void swapTwoLabelsInPanel(int firstIndex, int secondIndex) {
-        if (firstIndex < 0 || firstIndex >= rows * cols || secondIndex < 0 || secondIndex >= rows * cols) {
-            throw new IndexOutOfBoundsException();
-        } else if (firstIndex == secondIndex) {
-            System.out.println("firstIndex == secondIndex");
-            throw new IllegalArgumentException();
-        }
-        Component first = getComponent(firstIndex);
-        Component second = getComponent(secondIndex);
-        remove(first);
-        remove(second);
-        add(second, firstIndex);
-        add(first, secondIndex);
-        revalidate();
-        // repaint();
     }
 
     private void eatPiecesLabel(int firstIndex, int secondIndex) {
@@ -95,16 +70,21 @@ public class BoardPanel extends JPanel {
         Component second = getComponent(secondIndex);
         remove(first);
         remove(second);
-        add(new JLabel(new ImageIcon()), firstIndex);
-        add(first, secondIndex);
+        if (secondIndex < firstIndex) {
+            add(first, secondIndex);
+            add(new JLabel(new ImageIcon()), firstIndex);
+        } else {
+            add(new JLabel(new ImageIcon()), firstIndex);
+            add(first, secondIndex);
+        }
+
         revalidate();
         // repaint();
     }
 
     public void eatPieces(int row1, int col1, int row2, int col2) {
-        Piece first = board[row1][col1];
-        board[row1][col1] = new EmptyPiece(row1, col1, null);
-        board[row2][col2] = first;
+        board[row2][col2] = board[row1][col1];
+        board[row1][col1] = new EmptyPiece(row1, col1, PieceType.EMPTY);
         eatPiecesLabel(getLinearIndex(row1, col1), getLinearIndex(row2, col2));
     }
 
