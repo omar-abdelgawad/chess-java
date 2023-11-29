@@ -7,25 +7,32 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.event.MouseAdapter;
 import java.util.HashMap;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import java.awt.event.MouseEvent;
+
+import pieces.EmptyPiece;
 import pieces.Piece;
 import pieces.PieceFactory;
 import pieces.Piece.PieceColor;
 import pieces.Piece.PieceType;
 
+import listeners.BoardListener;
+
 /**
  * BoardPanel
  */
+
 public class BoardPanel extends JPanel {
     public final int rows = 8;
     public final int cols = 8;
     public final int tileSize = 100;
-    private Piece[][] board;
+    public Piece[][] board;
     private JLabel[][] labels;
     // private PieceColor turn;
     // private Piece selectedPiece;
@@ -40,14 +47,7 @@ public class BoardPanel extends JPanel {
         labels = new JLabel[rows][cols];
         initialize_board();
         drawBoard();
-    }
-
-    public void swapTwoPieces(int firstRow, int firstCol, int secondRow, int secondCol) {
-        Piece first = board[firstRow][firstCol];
-        Piece second = board[secondRow][secondCol];
-        board[firstRow][firstCol] = second;
-        board[secondRow][secondCol] = first;
-        swapTwoLabelsInPanel(getLinearIndex(firstRow, firstCol), getLinearIndex(secondRow, secondCol));
+        this.addMouseListener(new BoardListener(this));
     }
 
     public Piece getPiece(int row, int col) {
@@ -55,10 +55,11 @@ public class BoardPanel extends JPanel {
     }
 
     private int getLinearIndex(int row, int col) {
+        System.out.println(row * cols + col + " ");
         return row * cols + col;
     }
 
-    private void swapTwoLabelsInPanel(int firstIndex, int secondIndex) {
+    private void eatPiecesLabel(int firstIndex, int secondIndex) {
         if (firstIndex < 0 || firstIndex >= rows * cols || secondIndex < 0 || secondIndex >= rows * cols) {
             throw new IndexOutOfBoundsException();
         } else if (firstIndex == secondIndex) {
@@ -69,10 +70,22 @@ public class BoardPanel extends JPanel {
         Component second = getComponent(secondIndex);
         remove(first);
         remove(second);
-        add(second, firstIndex);
-        add(first, secondIndex);
-        // revalidate();
+        if (secondIndex < firstIndex) {
+            add(first, secondIndex);
+            add(new JLabel(new ImageIcon()), firstIndex);
+        } else {
+            add(new JLabel(new ImageIcon()), firstIndex);
+            add(first, secondIndex);
+        }
+
+        revalidate();
         // repaint();
+    }
+
+    public void eatPieces(int row1, int col1, int row2, int col2) {
+        board[row2][col2] = board[row1][col1];
+        board[row1][col1] = new EmptyPiece(row1, col1, PieceType.EMPTY);
+        eatPiecesLabel(getLinearIndex(row1, col1), getLinearIndex(row2, col2));
     }
 
     private void initialize_board() {
