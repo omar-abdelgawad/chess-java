@@ -6,6 +6,7 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.JLabel;
 
+import pieces.Piece.PieceType;
 import user_interface.BoardPanel;
 
 /**
@@ -31,18 +32,17 @@ public class BoardListener extends MouseAdapter {
             System.out.println(row + " " + col);
 
             if (firstClickRow == -1 && firstClickCol == -1) {
-                // First click
+                if (boardPanel.board[row][col].type == PieceType.EMPTY) {
+                    return;
+                }
                 firstClickRow = row;
                 firstClickCol = col;
             } else {
-                // Second click
                 boardPanel.eatPieces(firstClickRow, firstClickCol, row, col);
                 firstClickRow = -1;
                 firstClickCol = -1;
             }
         }
-
-        // You can use clickedLabel or extract more information as needed
 
     }
 

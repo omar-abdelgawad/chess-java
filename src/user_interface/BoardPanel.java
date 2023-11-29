@@ -32,7 +32,7 @@ public class BoardPanel extends JPanel {
     public final int rows = 8;
     public final int cols = 8;
     public final int tileSize = 100;
-    private Piece[][] board;
+    public Piece[][] board;
     private JLabel[][] labels;
     // private PieceColor turn;
     // private Piece selectedPiece;
@@ -127,7 +127,6 @@ public class BoardPanel extends JPanel {
                     icon = new ImageIcon(
                             icon.getImage().getScaledInstance(tileSize, tileSize, Image.SCALE_SMOOTH));
                 labels[r][c] = new JLabel(icon);
-                // labels[r][c].addMouseListener(new GridClickListener(r, c));
                 add(labels[r][c]);
             }
         }
