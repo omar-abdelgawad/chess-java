@@ -27,3 +27,4 @@ The `JAVA PROJECTS` view allows you to manage your dependencies. More details ca
 - [ ] Save game status for player.
 - [ ] Develop a chess engine using PyTorch.
 - [ ] Create a webapp for the game.
+- [ ] Drag and drop feature.
