@@ -7,20 +7,27 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.event.MouseAdapter;
 import java.util.HashMap;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import java.awt.event.MouseEvent;
+
+import pieces.EmptyPiece;
 import pieces.Piece;
 import pieces.PieceFactory;
 import pieces.Piece.PieceColor;
 import pieces.Piece.PieceType;
 
+import listeners.BoardListener;
+
 /**
  * BoardPanel
  */
+
 public class BoardPanel extends JPanel {
     public final int rows = 8;
     public final int cols = 8;
@@ -40,14 +47,16 @@ public class BoardPanel extends JPanel {
         labels = new JLabel[rows][cols];
         initialize_board();
         drawBoard();
+        // swapTwoPieces(0, 0, 1, 1);
+        this.addMouseListener(new BoardListener(this));
     }
 
-    public void swapTwoPieces(int firstRow, int firstCol, int secondRow, int secondCol) {
-        Piece first = board[firstRow][firstCol];
-        Piece second = board[secondRow][secondCol];
-        board[firstRow][firstCol] = second;
-        board[secondRow][secondCol] = first;
-        swapTwoLabelsInPanel(getLinearIndex(firstRow, firstCol), getLinearIndex(secondRow, secondCol));
+    public void swapTwoPieces(int row1, int col1, int row2, int col2) {
+        Piece first = board[row1][col1];
+        Piece second = board[row2][col2];
+        board[row1][col1] = second;
+        board[row2][col2] = first;
+        swapTwoLabelsInPanel(getLinearIndex(row1, col1), getLinearIndex(row2, col2));
     }
 
     public Piece getPiece(int row, int col) {
@@ -71,8 +80,32 @@ public class BoardPanel extends JPanel {
         remove(second);
         add(second, firstIndex);
         add(first, secondIndex);
-        // revalidate();
+        revalidate();
         // repaint();
+    }
+
+    private void eatPiecesLabel(int firstIndex, int secondIndex) {
+        if (firstIndex < 0 || firstIndex >= rows * cols || secondIndex < 0 || secondIndex >= rows * cols) {
+            throw new IndexOutOfBoundsException();
+        } else if (firstIndex == secondIndex) {
+            System.out.println("firstIndex == secondIndex");
+            throw new IllegalArgumentException();
+        }
+        Component first = getComponent(firstIndex);
+        Component second = getComponent(secondIndex);
+        remove(first);
+        remove(second);
+        add(new JLabel(new ImageIcon()), firstIndex);
+        add(first, secondIndex);
+        revalidate();
+        // repaint();
+    }
+
+    public void eatPieces(int row1, int col1, int row2, int col2) {
+        Piece first = board[row1][col1];
+        board[row1][col1] = new EmptyPiece(row1, col1, null);
+        board[row2][col2] = first;
+        eatPiecesLabel(getLinearIndex(row1, col1), getLinearIndex(row2, col2));
     }
 
     private void initialize_board() {
@@ -114,6 +147,7 @@ public class BoardPanel extends JPanel {
                     icon = new ImageIcon(
                             icon.getImage().getScaledInstance(tileSize, tileSize, Image.SCALE_SMOOTH));
                 labels[r][c] = new JLabel(icon);
+                // labels[r][c].addMouseListener(new GridClickListener(r, c));
                 add(labels[r][c]);
             }
         }
