@@ -7,8 +7,11 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.Point;
 import java.awt.event.MouseAdapter;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -36,6 +39,8 @@ public class BoardPanel extends JPanel {
     public final int tileSize = 100;
     public Piece[][] board;
     private JLabel[][] labels;
+    private final HashMap<String, ArrayList<Point>> legalMoveCoordinates = new HashMap<>();
+
     // private PieceColor turn;
     // private Piece selectedPiece;
     // private TileManager tileManager;
@@ -50,11 +55,6 @@ public class BoardPanel extends JPanel {
         initialize_board();
         drawBoard();
         this.addMouseListener(new BoardListener(this));
-        Pair<Integer, Integer> legalMoves[] = new Pair[3];
-        legalMoves[0] = new Pair<Integer, Integer>(1, 1);
-        legalMoves[1] = new Pair<Integer, Integer>(1, 2);
-        legalMoves[2] = new Pair<Integer, Integer>(3, 3);
-        this.highlightMoves(legalMoves);
     }
 
     public Piece getPiece(int row, int col) {
@@ -64,6 +64,12 @@ public class BoardPanel extends JPanel {
     private int getLinearIndex(int row, int col) {
         System.out.println(row * cols + col + " ");
         return row * cols + col;
+    }
+
+    public void setLegalMoveCoordinates(HashMap<String, ArrayList<Point>> legalMoveCorrdinates) {
+        this.legalMoveCoordinates.clear();
+        this.legalMoveCoordinates.putAll(legalMoveCorrdinates);
+        repaint();
     }
 
     private void eatPiecesLabel(int firstIndex, int secondIndex) {
@@ -93,22 +99,6 @@ public class BoardPanel extends JPanel {
         board[row2][col2] = board[row1][col1];
         board[row1][col1] = new EmptyPiece(row1, col1, PieceType.EMPTY);
         eatPiecesLabel(getLinearIndex(row1, col1), getLinearIndex(row2, col2));
-    }
-
-    public void highlightMoves(Pair<Integer, Integer> legalMoves[]) {
-        for (Pair<Integer, Integer> cord : legalMoves) {
-            int row = cord.getFirst();
-            int col = cord.getSecond();
-            Component label = getComponentAt(row * tileSize + 50, col * tileSize + 50);
-            System.out.println((row * 100 + 50) + " " + (col * 100 + 50));
-            JLabel labell = (JLabel) label;
-            System.out.println(labell);
-            // labell.setBackground(Color.red);
-            revalidate();
-
-            // g2d.setColor(Color.red);
-            // g2d.fillRect(row * tileSize, col * tileSize, tileSize, tileSize);
-        }
     }
 
     private void initialize_board() {
@@ -157,6 +147,19 @@ public class BoardPanel extends JPanel {
         // repaint();
     }
 
+    private void paintLegalMoves(Graphics g, Color color, ArrayList<Point> legalMoves) {
+        if (legalMoves == null) {
+            return;
+        }
+        g.setColor(color);
+        for (Point point : legalMoves) {
+            int x = point.x * tileSize;
+            int y = point.y * tileSize;
+
+            g.fillRect(x, y, tileSize, tileSize);
+        }
+    }
+
     @Override
     public void paintComponent(Graphics g) {
         Graphics2D g2 = (Graphics2D) g;
@@ -167,5 +170,8 @@ public class BoardPanel extends JPanel {
                 g2.fillRect(i * tileSize, j * tileSize, tileSize, tileSize);
             }
         }
+
+        paintLegalMoves(g, Color.lightGray, legalMoveCoordinates.get("EMPTY"));
+        paintLegalMoves(g, Color.red, legalMoveCoordinates.get("ATTACK"));
     }
 }
