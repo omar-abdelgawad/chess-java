@@ -1,4 +1,3 @@
-import javax.swing.JFrame;
 import user_interface.ChessFrame;
 
 public class ChessGame {
