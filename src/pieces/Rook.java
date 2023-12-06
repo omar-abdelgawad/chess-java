@@ -6,6 +6,8 @@ import user_interface.BoardPanel;
 
 /**
  * Rook
+ * TODO: impliment short castling
+ * TODO: impliment long castling
  */
 public class Rook extends Piece {
     public Rook(int row, int col, PieceColor color, BoardPanel boardPanel, PieceType type, ImageIcon icon) {

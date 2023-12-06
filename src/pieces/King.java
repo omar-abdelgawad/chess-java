@@ -14,9 +14,14 @@ public class King extends Piece {
     }
 
     public boolean isValidMove(int row, int col) {
-        if (this.row == row - 1 || this.row == row + 1 || this.col == col + 1 || this.col == col - 1
-                || this.col + this.row - (row + col) == 2
-                || this.col + this.row - (row + col) == -2) {
+        if ((this.row == row - 1 && this.col == col)
+                || (this.row == row + 1 && this.col == col)
+                || (this.col == col + 1 && this.row == row)
+                || (this.col == col - 1 && this.row == row)
+                || (this.row == row - 1 && this.col == col - 1)
+                || (this.row == row + 1 && this.col == col + 1)
+                || (this.row == row - 1 && this.col == col + 1)
+                || (this.row == row + 1 && this.col == col - 1)) {
             return true;
         }
         return false;
