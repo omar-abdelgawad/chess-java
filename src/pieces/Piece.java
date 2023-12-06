@@ -1,8 +1,12 @@
 package pieces;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import javax.swing.ImageIcon;
 
 import user_interface.BoardPanel;
+import utils.Pair;
 
 /**
  * abstract Piece class that all pieces will extend
@@ -38,6 +42,21 @@ public abstract class Piece {
         this.row = row;
         this.col = col;
         this.type = type;
+    }
+
+    public HashMap<String, ArrayList<Pair<Integer, Integer>>> getValidMoves() {
+        HashMap<String, ArrayList<Pair<Integer, Integer>>> validMoves = new HashMap<>();
+        ArrayList<Pair<Integer, Integer>> validMovesList = new ArrayList<>();
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if (isValidMove(i, j)) {
+                    validMovesList.add(new Pair<Integer, Integer>(i, j));
+                }
+            }
+        }
+        validMoves.put(this.toString(), validMovesList);
+        return validMoves;
+
     }
 
     public abstract boolean isValidMove(int row, int col);

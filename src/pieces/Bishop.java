@@ -13,9 +13,49 @@ public class Bishop extends Piece {
     }
 
     public boolean isValidMove(int row, int col) {
-        if (this.row + this.col == row + col || this.row - this.col == row - col) {
-            return true;
+        Piece[][] board = this.boardPanel.board;
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if (this.row != row && this.col != col)
+                    return false;
+                if (board[row][col].color == this.color) {
+                    return false;
+                }
+                if (this.row + this.col != row + col && this.row - this.col != row - col) {
+                    return false;
+                }
+                if (board[i][j].color == this.color && board[i][j].type != PieceType.EMPTY) {
+                    if (this.row == row) {
+                        if (this.col < col) {
+                            for (int k = 0; k < col; k++) {
+                                if (this.col == k) {
+                                    continue;
+                                }
+                                if (board[i][k].type != PieceType.EMPTY) {
+                                    return false;
+                                }
+                            }
+                        }
+
+                    } else {
+                        if (this.row < row) {
+                            for (int k = 0; k < row; k++) {
+                                if (this.row == k) {
+                                    continue;
+
+                                }
+                                if (board[k][j].type != PieceType.EMPTY) {
+                                    return false;
+                                }
+                            }
+                        }
+
+                    }
+
+                }
+
+            }
         }
-        return false;
+        return true;
     }
 }

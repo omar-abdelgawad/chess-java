@@ -47,9 +47,8 @@ public class BoardPanel extends JPanel {
 
     public BoardPanel() {
         setPreferredSize(new Dimension(cols * tileSize, rows * tileSize)); // size
-        setBackground(Color.red); // background color
-        setLayout(new GridLayout(rows, cols)); // what exactly does the GridLayout do? when the setLayout is supposed to
-                                               // mangage the layout of the tiles
+        setBackground(Color.red);
+        setLayout(new GridLayout(rows, cols));
         // tileManager = new TileManager(this);
         board = new Piece[rows][cols];
         labels = new JLabel[rows][cols];
