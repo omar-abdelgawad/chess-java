@@ -12,50 +12,77 @@ public class Bishop extends Piece {
         super(row, col, color, boardPanel, type, icon);
     }
 
-    public boolean isValidMove(int row, int col) {
-        Piece[][] board = this.boardPanel.board;
+    public boolean isValidMove(int targetRow, int targetCol) {
+        // Piece[][] board = this.boardPanel.board;
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                if (this.row != row && this.col != col)
-                    return false;
-                if (board[row][col].color == this.color) {
+                // // if same row or same or same col return false
+                // if (this.row == targetRow || this.col == targetCol)
+                // return false;
+                // // if same color return false
+                // if (board[targetRow][targetCol].color == this.color) {
+                // return false;
+                // }
+
+                // if not in same diagonal return false
+                if (this.row + this.col != targetRow + targetCol && this.row - this.col != targetRow - targetCol) {
                     return false;
                 }
-                if (this.row + this.col != row + col && this.row - this.col != row - col) {
+                // if no movement return false
+                if (this.row == targetRow && this.col == targetCol) {
                     return false;
                 }
-                if (board[i][j].color == this.color && board[i][j].type != PieceType.EMPTY) {
-                    if (this.row == row) {
-                        if (this.col < col) {
-                            for (int k = 0; k < col; k++) {
-                                if (this.col == k) {
-                                    continue;
-                                }
-                                if (board[i][k].type != PieceType.EMPTY) {
-                                    return false;
-                                }
-                            }
-                        }
-
-                    } else {
-                        if (this.row < row) {
-                            for (int k = 0; k < row; k++) {
-                                if (this.row == k) {
-                                    continue;
-
-                                }
-                                if (board[k][j].type != PieceType.EMPTY) {
-                                    return false;
-                                }
-                            }
-                        }
-
-                    }
-
+                // if there is a piece in the way return false
+                if (isBlocked(this.row, this.col, targetRow, targetCol)) {
+                    return false;
                 }
 
             }
         }
         return true;
     }
+
+    private boolean isBlocked(int row, int col, int targetRow, int targetCol) {
+        Piece[][] board = this.boardPanel.board;
+        // moving up the board
+        if (targetRow > row) {
+            // towards uuper left corner
+            if (targetCol > col) {
+                for (int i = row + 1, j = col - 1; i < targetRow && j > targetCol; i++, j--) {
+                    if (board[i][j] != null) {
+                        return true;
+                    }
+                }
+            }
+            // towards upper right corner
+            else if (targetCol < col) {
+                for (int i = row + 1, j = col + 1; i < targetRow && j < targetCol; i++, j++) {
+                    if (board[i][j] != null) {
+                        return true;
+                    }
+                }
+            }
+        }
+        // moving down the board
+        else if (targetRow < row) {
+            // towards lower left corner
+            if (targetCol < col) {
+                for (int i = row - 1, j = col - 1; i > targetRow && j > targetCol; i--, j--) {
+                    if (board[i][j] != null) {
+                        return true;
+                    }
+                }
+            }
+            // twoards lower right corner
+            else if (targetCol > col) {
+                for (int i = row - 1, j = col + 1; i > targetRow && j < targetCol; i--, j++) {
+                    if (board[i][j] != null) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
 }
