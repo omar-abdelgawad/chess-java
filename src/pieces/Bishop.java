@@ -42,14 +42,14 @@ public class Bishop extends Piece {
         return true;
     }
 
-    private boolean isBlocked(int row, int col, int targetRow, int targetCol) {
+    public boolean isBlocked(int row, int col, int targetRow, int targetCol) {
         Piece[][] board = this.boardPanel.board;
         // moving up the board
         if (targetRow > row) {
             // towards uuper left corner
             if (targetCol > col) {
                 for (int i = row + 1, j = col - 1; i < targetRow && j > targetCol; i++, j--) {
-                    if (board[i][j] != null) {
+                    if (board[row][i].type != PieceType.EMPTY) {
                         return true;
                     }
                 }
@@ -57,7 +57,7 @@ public class Bishop extends Piece {
             // towards upper right corner
             else if (targetCol < col) {
                 for (int i = row + 1, j = col + 1; i < targetRow && j < targetCol; i++, j++) {
-                    if (board[i][j] != null) {
+                    if (board[row][i].type != PieceType.EMPTY) {
                         return true;
                     }
                 }
@@ -68,7 +68,7 @@ public class Bishop extends Piece {
             // towards lower left corner
             if (targetCol < col) {
                 for (int i = row - 1, j = col - 1; i > targetRow && j > targetCol; i--, j--) {
-                    if (board[i][j] != null) {
+                    if (board[row][i].type != PieceType.EMPTY) {
                         return true;
                     }
                 }
@@ -76,7 +76,7 @@ public class Bishop extends Piece {
             // twoards lower right corner
             else if (targetCol > col) {
                 for (int i = row - 1, j = col + 1; i > targetRow && j < targetCol; i--, j++) {
-                    if (board[i][j] != null) {
+                    if (board[row][i].type != PieceType.EMPTY) {
                         return true;
                     }
                 }

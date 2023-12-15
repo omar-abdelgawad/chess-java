@@ -13,7 +13,7 @@ public class Queen extends Piece {
     }
 
     public boolean isValidMove(int row, int col) {
-        Piece[][] board = this.boardPanel.board;
+        // Piece[][] board = this.boardPanel.board;
 
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
@@ -27,40 +27,97 @@ public class Queen extends Piece {
                 }
 
                 // ckeck if other pieces are in the way
-                if (board[i][j].color == this.color && board[i][j].type != PieceType.EMPTY) {
-                    if (this.row == row) {
-                        if (this.col < col) {
-                            for (int k = 0; k < col; k++) {
-                                if (this.col == k) {
-                                    continue;
-                                }
-                                if (board[i][k].type != PieceType.EMPTY) {
-                                    return false;
-                                }
-                            }
-                        }
-
-                    } else {
-                        if (this.row < row) {
-                            for (int k = 0; k < row; k++) {
-                                if (this.row == k) {
-                                    continue;
-
-                                }
-                                if (board[k][j].type != PieceType.EMPTY) {
-                                    return false;
-                                }
-                            }
-                        }
-
-                    }
-
+                if (isBlocked(this.row, this.col, row, col)) {
+                    return false;
                 }
 
             }
 
         }
         return true;
+    }
+
+    private boolean isBlocked(int row, int col, int targetRow, int targetCol) {
+        // if(Bishop.isBlocked(row, col, targetRow, targetCol) || Rook.isBlocked(row,
+        // col, targetRow, targetCol)){
+        // return true;
+        // }
+        Piece[][] board = this.boardPanel.board;
+        // diganol movement
+        // moving up the board
+        if (targetRow > row) {
+            // towards uuper left corner
+            if (targetCol > col) {
+                for (int i = row + 1, j = col - 1; i < targetRow && j > targetCol; i++, j--) {
+                    if (board[row][i].type != PieceType.EMPTY) {
+                        return true;
+                    }
+                }
+            }
+            // towards upper right corner
+            else if (targetCol < col) {
+                for (int i = row + 1, j = col + 1; i < targetRow && j < targetCol; i++, j++) {
+                    if (board[row][i].type != PieceType.EMPTY) {
+                        return true;
+                    }
+                }
+            }
+        }
+        // moving down the board
+        else if (targetRow < row) {
+            // towards lower left corner
+            if (targetCol < col) {
+                for (int i = row - 1, j = col - 1; i > targetRow && j > targetCol; i--, j--) {
+                    if (board[row][i].type != PieceType.EMPTY) {
+                        return true;
+                    }
+                }
+            }
+            // twoards lower right corner
+            else if (targetCol > col) {
+                for (int i = row - 1, j = col + 1; i > targetRow && j < targetCol; i--, j++) {
+                    if (board[row][i].type != PieceType.EMPTY) {
+                        return true;
+                    }
+                }
+            }
+        }
+
+        // straight movement
+        // moving up the board
+        if (targetRow > row) {
+            for (int i = row + 1; i < targetRow; i++) {
+                if (board[i][col].type != PieceType.EMPTY) {
+                    return true;
+                }
+            }
+        }
+        // moving down the board
+        else if (targetRow < row) {
+            for (int i = row - 1; i > targetRow; i--) {
+                if (board[i][col].type != PieceType.EMPTY) {
+                    return true;
+                }
+            }
+        }
+        // moving right
+        else if (targetCol > col) {
+            for (int i = col + 1; i < targetCol; i++) {
+                if (board[row][i].type != PieceType.EMPTY) {
+                    return true;
+                }
+            }
+        }
+        // moving left
+        else if (targetCol < col) {
+            for (int i = col - 1; i > targetCol; i--) {
+                if (board[row][i].type != PieceType.EMPTY) {
+                    return true;
+                }
+            }
+        }
+        return false;
+
     }
 
 }

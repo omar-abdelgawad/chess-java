@@ -29,8 +29,8 @@ public class Pawn extends Piece {
                 }
 
             }
-            return false;
-        } else {
+
+        } else if (color == PieceColor.BLACK) {
             if (this.hasMoved == true) {
                 if (this.row - 1 == row || this.row - 2 == row) {
                     return true;
@@ -40,9 +40,10 @@ public class Pawn extends Piece {
                 return true;
 
             }
-            return false;
 
         }
+
+        return false;
     }
 
 }
