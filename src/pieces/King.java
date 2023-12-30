@@ -14,9 +14,37 @@ public class King extends Piece {
     }
 
     public boolean isValidMove(int row, int col) {
-        if (this.row == row - 1 || this.row == row + 1 || this.col == col + 1 || this.col == col - 1
-                || this.col + this.row - (row + col) == 2
-                || this.col + this.row - (row + col) == -2) {
+        // Piece[][] board = this.boardPanel.board;
+
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if (this.row != row && this.col != col)
+                    return false;
+                if (!((this.row == row - 1 && this.col == col)
+                        || (this.row == row + 1 && this.col == col)
+                        || (this.col == col + 1 && this.row == row)
+                        || (this.col == col - 1 && this.row == row)
+                        || (this.row == row - 1 && this.col == col - 1)
+                        || (this.row == row + 1 && this.col == col + 1)
+                        || (this.row == row - 1 && this.col == col + 1)
+                        || (this.row == row + 1 && this.col == col - 1)))
+
+                    return false;
+
+                // ckeck if other pieces are in the way
+                if (isBlocked(this.row, this.col, row, col)) {
+                    return false;
+                }
+
+            }
+
+        }
+        return true;
+    }
+
+    private boolean isBlocked(int row, int col, int targetRow, int targetCol) {
+        Piece[][] board = this.boardPanel.board;
+        if (board[targetCol][targetCol].type != PieceType.EMPTY) {
             return true;
         }
         return false;

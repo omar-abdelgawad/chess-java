@@ -46,7 +46,7 @@ public class BoardPanel extends JPanel {
     // private TileManager tileManager;
 
     public BoardPanel() {
-        setPreferredSize(new Dimension(cols * tileSize, rows * tileSize));
+        setPreferredSize(new Dimension(cols * tileSize, rows * tileSize)); // size
         setBackground(Color.red);
         setLayout(new GridLayout(rows, cols));
         // tileManager = new TileManager(this);
