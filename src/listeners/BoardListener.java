@@ -10,6 +10,7 @@ import java.util.List;
 
 import javax.swing.JLabel;
 
+import pieces.Piece;
 import pieces.Piece.PieceType;
 import user_interface.BoardPanel;
 
@@ -35,9 +36,12 @@ public class BoardListener extends MouseAdapter {
     }
 
     // FOR TESTING PURPOSES ONLY (HIGHLIGH)
-
     public BoardListener(BoardPanel boardPanel) {
         this.boardPanel = boardPanel;
+    }
+
+    private Piece getPieceName(int row, int col) {
+        return boardPanel.board[row][col];
     }
 
     @Override
@@ -57,7 +61,8 @@ public class BoardListener extends MouseAdapter {
                 firstClickRow = row;
                 firstClickCol = col;
                 // FOR TESTING PURPOSES ONLY (HIGHLIGHTING LEGAL MOVES)
-                boardPanel.setLegalMoveCoordinates(legalMoveCoordinates);
+                // boardPanel.setLegalMoveCoordinates(legalMoveCoordinates);
+                boardPanel.setLegalMoveCoordinates(boardPanel.board[row][col].getValidMoves());
             } else {
                 boardPanel.eatPieces(firstClickRow, firstClickCol, row, col);
                 firstClickRow = -1;

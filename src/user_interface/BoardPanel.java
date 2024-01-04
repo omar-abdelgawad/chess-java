@@ -8,22 +8,23 @@ import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Point;
-import java.awt.event.MouseAdapter;
+// import java.awt.event.MouseAdapter;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
+// import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import java.awt.event.MouseEvent;
+// import java.awt.event.MouseEvent;
 
-import utils.Pair;
+// import utils.Pair;
 
 import pieces.EmptyPiece;
 import pieces.Piece;
 import pieces.PieceFactory;
+import pieces.Piece.MoveType;
 import pieces.Piece.PieceColor;
 import pieces.Piece.PieceType;
 
@@ -39,17 +40,15 @@ public class BoardPanel extends JPanel {
     public final int tileSize = 100;
     public Piece[][] board;
     private JLabel[][] labels;
-    private final HashMap<String, ArrayList<Point>> legalMoveCoordinates = new HashMap<>();
+    private final HashMap<MoveType, ArrayList<Point>> legalMoveCoordinates = new HashMap<>();
 
     // private PieceColor turn;
     // private Piece selectedPiece;
-    // private TileManager tileManager;
 
     public BoardPanel() {
         setPreferredSize(new Dimension(cols * tileSize, rows * tileSize)); // size
         setBackground(Color.red);
         setLayout(new GridLayout(rows, cols));
-        // tileManager = new TileManager(this);
         board = new Piece[rows][cols];
         labels = new JLabel[rows][cols];
         initialize_board();
@@ -66,7 +65,7 @@ public class BoardPanel extends JPanel {
         return row * cols + col;
     }
 
-    public void setLegalMoveCoordinates(HashMap<String, ArrayList<Point>> legalMoveCorrdinates) {
+    public void setLegalMoveCoordinates(HashMap<MoveType, ArrayList<Point>> legalMoveCorrdinates) {
         this.legalMoveCoordinates.clear();
         this.legalMoveCoordinates.putAll(legalMoveCorrdinates);
         repaint();
@@ -171,7 +170,7 @@ public class BoardPanel extends JPanel {
             }
         }
 
-        paintLegalMoves(g, Color.lightGray, legalMoveCoordinates.get("EMPTY"));
-        paintLegalMoves(g, Color.red, legalMoveCoordinates.get("ATTACK"));
+        paintLegalMoves(g, Color.lightGray, legalMoveCoordinates.get(MoveType.EMPTY));
+        paintLegalMoves(g, Color.red, legalMoveCoordinates.get(MoveType.ATTACK));
     }
 }

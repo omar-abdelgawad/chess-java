@@ -6,7 +6,7 @@ import java.util.HashMap;
 import javax.swing.ImageIcon;
 
 import user_interface.BoardPanel;
-import utils.Pair;
+import java.awt.Point;
 
 /**
  * abstract Piece class that all pieces will extend
@@ -19,6 +19,10 @@ public abstract class Piece {
 
     public enum PieceType {
         PAWN, ROOK, KNIGHT, BISHOP, QUEEN, KING, EMPTY
+    }
+
+    public enum MoveType {
+        EMPTY, ATTACK
     }
 
     public int row;
@@ -44,17 +48,18 @@ public abstract class Piece {
         this.type = type;
     }
 
-    public HashMap<String, ArrayList<Pair<Integer, Integer>>> getValidMoves() {
-        HashMap<String, ArrayList<Pair<Integer, Integer>>> validMoves = new HashMap<>();
-        ArrayList<Pair<Integer, Integer>> validMovesList = new ArrayList<>();
+    public HashMap<MoveType, ArrayList<Point>> getValidMoves() {
+        HashMap<MoveType, ArrayList<Point>> validMoves = new HashMap<>();
+        ArrayList<Point> validMovesList = new ArrayList<>();
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 if (isValidMove(i, j)) {
-                    validMovesList.add(new Pair<Integer, Integer>(i, j));
+                    validMovesList.add(new Point(i, j));
                 }
             }
         }
-        validMoves.put(this.toString(), validMovesList);
+        // validMoves.put(this.toMoveType(), validMovesList);
+        validMoves.put(MoveType.EMPTY, validMovesList);
         return validMoves;
 
     }
