@@ -21,21 +21,7 @@ public class BoardListener extends MouseAdapter {
     private final BoardPanel boardPanel;
     private int firstClickRow = -1;
     private int firstClickCol = -1;
-    // FOR TESTING PURPOSES ONLY (HIGHLIGHTING LEGAL MOVES)
-    private static HashMap<String, ArrayList<Point>> legalMoveCoordinates = new HashMap<>();
 
-    static {
-        legalMoveCoordinates.put("EMPTY", new ArrayList<>());
-        legalMoveCoordinates.put("ATTACK", new ArrayList<>());
-        legalMoveCoordinates.get("EMPTY").add(new Point(0, 0));
-        legalMoveCoordinates.get("EMPTY").add(new Point(1, 1));
-        legalMoveCoordinates.get("EMPTY").add(new Point(2, 2));
-        legalMoveCoordinates.get("ATTACK").add(new Point(3, 3));
-        legalMoveCoordinates.get("ATTACK").add(new Point(4, 4));
-        legalMoveCoordinates.get("ATTACK").add(new Point(5, 5));
-    }
-
-    // FOR TESTING PURPOSES ONLY (HIGHLIGH)
     public BoardListener(BoardPanel boardPanel) {
         this.boardPanel = boardPanel;
     }
@@ -52,7 +38,7 @@ public class BoardListener extends MouseAdapter {
         if (clickedComponent instanceof JLabel) {
             int row = boardPanel.getComponentZOrder(clickedComponent) / boardPanel.cols;
             int col = boardPanel.getComponentZOrder(clickedComponent) % boardPanel.cols;
-            System.out.println(row + " " + col);
+            // System.out.println(row + " " + col);
 
             if (firstClickRow == -1 && firstClickCol == -1) {
                 if (boardPanel.board[row][col].type == PieceType.EMPTY) {
@@ -62,7 +48,10 @@ public class BoardListener extends MouseAdapter {
                 firstClickCol = col;
                 // FOR TESTING PURPOSES ONLY (HIGHLIGHTING LEGAL MOVES)
                 // boardPanel.setLegalMoveCoordinates(legalMoveCoordinates);
-                boardPanel.setLegalMoveCoordinates(boardPanel.board[row][col].getValidMoves());
+                for (Point point : getPieceName(row, col).getValidMovesList()) {
+                    // System.out.println(point);
+                }
+                boardPanel.setLegalMoveCoordinates(getPieceName(row, col).getValidMoves());
             } else {
                 boardPanel.eatPieces(firstClickRow, firstClickCol, row, col);
                 firstClickRow = -1;
