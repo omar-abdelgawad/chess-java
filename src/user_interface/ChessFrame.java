@@ -6,8 +6,6 @@ import java.awt.GridBagLayout;
 
 import javax.swing.JFrame;
 
-// import Board;
-
 /**
  * ChessFrame class that extends JFrame
  */
@@ -26,7 +24,9 @@ public class ChessFrame extends JFrame {
                 this.timer1 = new Timer(this, 1);
                 add(boardPanel);
                 System.out.println("boardPanel has been added");
-                this.timer2 = new Timer(this);
+                this.timer2 = new Timer(this, 2);
+
+                this.addMouseListener(new TimerListener(timer1, timer2, boardPanel));
 
                 setMinimumSize(new Dimension(width, height));
                 setLocationRelativeTo(null);
