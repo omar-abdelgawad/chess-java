@@ -36,13 +36,16 @@ public class BoardPanel extends JPanel {
     private JLabel[][] labels;
     private final HashMap<MoveType, ArrayList<Point>> legalMoveCoordinates = new HashMap<>();
     public PieceColor turn = PieceColor.WHITE;
+    private Clock gameClock;
+    private boolean gameStarted = false;
 
-    public BoardPanel() {
+    public BoardPanel(Clock gameClock) {
         setPreferredSize(new Dimension(cols * tileSize, rows * tileSize)); // size
         setBackground(Color.red);
         setLayout(new GridLayout(rows, cols));
         board = new Piece[rows][cols];
         labels = new JLabel[rows][cols];
+        this.gameClock = gameClock;
         initialize_board();
         drawBoardLabels();
         this.addMouseListener(new BoardListener(this));
@@ -95,10 +98,15 @@ public class BoardPanel extends JPanel {
         board[row2][col2].row = row2;
         board[row2][col2].col = col2;
         board[row2][col2].hasMoved = true;
-        // replace eaten piece with empty piece
         board[row1][col1] = new EmptyPiece(row1, col1, PieceType.EMPTY);
         eatPiecesLabel(getLinearIndex(row1, col1), getLinearIndex(row2, col2));
+        switchTurn();
+    }
+
+    private void switchTurn() {
         this.turn = turn.toggle();
+        gameClock.toggleTimer(gameStarted, turn);
+        gameStarted = true;
     }
 
     private void initialize_board() {
@@ -132,7 +140,6 @@ public class BoardPanel extends JPanel {
     }
 
     private void drawBoardLabels() {
-        // removeAll();
         for (int r = 0; r < rows; r++) {
             for (int c = 0; c < cols; c++) {
                 ImageIcon icon = board[r][c].icon;
@@ -144,8 +151,6 @@ public class BoardPanel extends JPanel {
                 add(labels[r][c]);
             }
         }
-        // revalidate();
-        // repaint();
     }
 
     private void paintLegalEmptyMoves(Graphics g, Color color, ArrayList<Point> legalMoves) {

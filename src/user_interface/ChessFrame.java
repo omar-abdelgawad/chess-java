@@ -13,21 +13,18 @@ public class ChessFrame extends JFrame {
         private static final int width = 1500;
         private static final int height = 1000;
         private BoardPanel boardPanel;
-        private Timer timer1;
-        private Timer timer2;
+        public Clock gameClock;
 
         public ChessFrame() {
                 super("Chess");
                 setLayout(new GridBagLayout());
                 getContentPane().setBackground(Color.gray);
-                boardPanel = new BoardPanel();
-                this.timer1 = new Timer(this, 1);
-                add(boardPanel);
+                this.gameClock = new Clock();
+                add(gameClock.timer1);
                 System.out.println("boardPanel has been added");
-                this.timer2 = new Timer(this, 2);
-
-                this.addMouseListener(new TimerListener(timer1, timer2, boardPanel));
-
+                boardPanel = new BoardPanel(gameClock);
+                add(boardPanel);
+                add(gameClock.timer2);
                 setMinimumSize(new Dimension(width, height));
                 setLocationRelativeTo(null);
                 setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
