@@ -63,8 +63,6 @@ public abstract class Piece {
         return validMovesList;
     }
 
-
-    
     public HashMap<MoveType, ArrayList<Point>> getValidMoves() {
         HashMap<MoveType, ArrayList<Point>> validMoves = new HashMap<>();
         Piece[][] board = this.boardPanel.board;
@@ -85,6 +83,19 @@ public abstract class Piece {
         validMoves.put(MoveType.ATTACK, attackmoves);
         return validMoves;
 
+    }
+
+    protected boolean commonIsValid(int targetRow, int targetCol) {
+        Piece[][] board = this.boardPanel.board;
+        // can't move to the same spot
+        if (this.row == targetRow && this.col == targetCol) {
+            return false;
+        }
+        // can't move to a spot with a piece of the same color
+        if (board[targetRow][targetCol].type != PieceType.EMPTY && board[targetRow][targetCol].color == this.color) {
+            return false;
+        }
+        return true;
     }
 
     public abstract boolean isValidMove(int row, int col);

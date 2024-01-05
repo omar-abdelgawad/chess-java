@@ -81,8 +81,20 @@ public class BoardPanel extends JPanel {
         // repaint();
     }
 
+    /**
+     * Piece at (row1, col1) eats piece at (row2, col2)
+     * 
+     * @param row1 row of piece that is eating
+     * @param col1 col of piece that is eating
+     * @param row2 row of piece to be eaten
+     * @param col2 col of piece to be eaten
+     */
     public void eatPieces(int row1, int col1, int row2, int col2) {
         board[row2][col2] = board[row1][col1];
+        board[row2][col2].row = row2;
+        board[row2][col2].col = col2;
+        board[row2][col2].hasMoved = true;
+        // replace eaten piece with empty piece
         board[row1][col1] = new EmptyPiece(row1, col1, PieceType.EMPTY);
         eatPiecesLabel(getLinearIndex(row1, col1), getLinearIndex(row2, col2));
     }
