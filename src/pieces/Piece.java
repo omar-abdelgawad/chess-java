@@ -7,6 +7,7 @@ import javax.swing.ImageIcon;
 
 import user_interface.BoardPanel;
 import java.awt.Point;
+import java.lang.reflect.Array;
 
 /**
  * abstract Piece class that all pieces will extend
@@ -48,18 +49,40 @@ public abstract class Piece {
         this.type = type;
     }
 
-    public HashMap<MoveType, ArrayList<Point>> getValidMoves() {
-        HashMap<MoveType, ArrayList<Point>> validMoves = new HashMap<>();
+    public ArrayList<Point> getValidMovesList() {
         ArrayList<Point> validMovesList = new ArrayList<>();
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 if (isValidMove(i, j)) {
                     validMovesList.add(new Point(i, j));
+                    System.out.println("Valid Move: " + i + ", " + j);
                 }
             }
         }
-        // validMoves.put(this.toMoveType(), validMovesList);
-        validMoves.put(MoveType.EMPTY, validMovesList);
+
+        return validMovesList;
+    }
+
+
+    
+    public HashMap<MoveType, ArrayList<Point>> getValidMoves() {
+        HashMap<MoveType, ArrayList<Point>> validMoves = new HashMap<>();
+        Piece[][] board = this.boardPanel.board;
+        ArrayList<Point> emptymoves = new ArrayList<>();
+        ArrayList<Point> attackmoves = new ArrayList<>();
+
+        for (Point Move : getValidMovesList()) {
+            if (board[Move.x][Move.y].type != PieceType.EMPTY && board[Move.x][Move.y].color != this.color) {
+                attackmoves.add(Move);
+                System.out.println("Attack Move: " + Move.x + ", " + Move.y);
+            } else {
+                emptymoves.add(Move);
+                System.out.println("Empty Move: " + Move.x + ", " + Move.y);
+            }
+        }
+
+        validMoves.put(MoveType.EMPTY, emptymoves);
+        validMoves.put(MoveType.ATTACK, attackmoves);
         return validMoves;
 
     }

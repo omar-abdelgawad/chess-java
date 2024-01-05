@@ -28,10 +28,12 @@ public class Bishop extends Piece {
                 if (this.row + this.col != targetRow + targetCol && this.row - this.col != targetRow - targetCol) {
                     return false;
                 }
+
                 // if no movement return false
                 if (this.row == targetRow && this.col == targetCol) {
                     return false;
                 }
+                
                 // if there is a piece in the way return false
                 if (isBlocked(this.row, this.col, targetRow, targetCol)) {
                     return false;
