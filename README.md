@@ -15,15 +15,15 @@ The `JAVA PROJECTS` view allows you to manage your dependencies. More details ca
 
 ## TODOS
 
-- [ ] Design the class structure.
-- [ ] Develop the GUI using Swing and Awt.
+- [x] Design the class structure.
+- [x] Develop the GUI using Swing and Awt.
+- [x] Package into a jar file.
+- [ ] Implement move sound effects.
 - [ ] Implement all Chess rules.
 - [ ] Document the project in ReadMe and GitHub pages.
 - [ ] Write Unit tests using a testing framework.
-- [ ] Package into a jar file.
 
 ## Extra-TODOS
-
 - [ ] Save game status for player.
 - [ ] Develop a chess engine using PyTorch.
 - [ ] Create a webapp for the game.

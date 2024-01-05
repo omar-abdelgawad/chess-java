@@ -40,8 +40,6 @@ public class PieceFactory {
 
     public static Piece createPiece(int row, int col, Piece.PieceColor color, BoardPanel boardPanel,
             Piece.PieceType type) {
-
-        System.out.println(type);
         switch (type) {
             case PAWN:
                 ImageIcon b_or_w_pawn = color == Piece.PieceColor.WHITE ? w_pawn : b_pawn;

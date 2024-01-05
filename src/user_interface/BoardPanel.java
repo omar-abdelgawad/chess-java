@@ -35,6 +35,7 @@ public class BoardPanel extends JPanel {
     public Piece[][] board;
     private JLabel[][] labels;
     private final HashMap<MoveType, ArrayList<Point>> legalMoveCoordinates = new HashMap<>();
+    public PieceColor turn = PieceColor.WHITE;
 
     public BoardPanel() {
         setPreferredSize(new Dimension(cols * tileSize, rows * tileSize)); // size
@@ -48,7 +49,6 @@ public class BoardPanel extends JPanel {
     }
 
     private int getLinearIndex(int row, int col) {
-        System.out.println(row * cols + col + " ");
         return row * cols + col;
     }
 
@@ -83,6 +83,7 @@ public class BoardPanel extends JPanel {
 
     /**
      * Piece at (row1, col1) eats piece at (row2, col2)
+     * Also denotes a turn has passed.
      * 
      * @param row1 row of piece that is eating
      * @param col1 col of piece that is eating
@@ -97,6 +98,7 @@ public class BoardPanel extends JPanel {
         // replace eaten piece with empty piece
         board[row1][col1] = new EmptyPiece(row1, col1, PieceType.EMPTY);
         eatPiecesLabel(getLinearIndex(row1, col1), getLinearIndex(row2, col2));
+        this.turn = turn.toggle();
     }
 
     private void initialize_board() {
@@ -136,7 +138,8 @@ public class BoardPanel extends JPanel {
                 ImageIcon icon = board[r][c].icon;
                 if (icon != null)
                     icon = new ImageIcon(
-                            icon.getImage().getScaledInstance(tileSize, tileSize, Image.SCALE_SMOOTH));
+                            icon.getImage().getScaledInstance(tileSize - 10, tileSize - 10,
+                                    Image.SCALE_SMOOTH));
                 labels[r][c] = new JLabel(icon);
                 add(labels[r][c]);
             }
@@ -145,7 +148,20 @@ public class BoardPanel extends JPanel {
         // repaint();
     }
 
-    private void paintLegalMoves(Graphics g, Color color, ArrayList<Point> legalMoves) {
+    private void paintLegalEmptyMoves(Graphics g, Color color, ArrayList<Point> legalMoves) {
+        if (legalMoves == null) {
+            return;
+        }
+        g.setColor(color);
+        for (Point point : legalMoves) {
+            int row = point.x * tileSize;
+            int col = point.y * tileSize;
+
+            g.fillOval(col + tileSize / 4, row + tileSize / 4, tileSize / 2, tileSize / 2);
+        }
+    }
+
+    private void paintLegalAttackMoves(Graphics g, Color color, ArrayList<Point> legalMoves) {
         if (legalMoves == null) {
             return;
         }
@@ -169,7 +185,7 @@ public class BoardPanel extends JPanel {
             }
         }
 
-        paintLegalMoves(g, Color.lightGray, legalMoveCoordinates.get(MoveType.EMPTY));
-        paintLegalMoves(g, Color.red, legalMoveCoordinates.get(MoveType.ATTACK));
+        paintLegalEmptyMoves(g, Color.lightGray, legalMoveCoordinates.get(MoveType.EMPTY));
+        paintLegalAttackMoves(g, Color.red, legalMoveCoordinates.get(MoveType.ATTACK));
     }
 }

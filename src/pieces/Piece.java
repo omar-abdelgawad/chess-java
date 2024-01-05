@@ -7,7 +7,6 @@ import javax.swing.ImageIcon;
 
 import user_interface.BoardPanel;
 import java.awt.Point;
-import java.lang.reflect.Array;
 
 /**
  * abstract Piece class that all pieces will extend
@@ -15,7 +14,15 @@ import java.lang.reflect.Array;
  */
 public abstract class Piece {
     public enum PieceColor {
-        WHITE, BLACK
+        WHITE, BLACK;
+
+        public PieceColor toggle() {
+            if (this == WHITE) {
+                return BLACK;
+            } else {
+                return WHITE;
+            }
+        }
     }
 
     public enum PieceType {
@@ -55,7 +62,6 @@ public abstract class Piece {
             for (int j = 0; j < 8; j++) {
                 if (isValidMove(i, j)) {
                     validMovesList.add(new Point(i, j));
-                    System.out.println("Valid Move: " + i + ", " + j);
                 }
             }
         }
@@ -83,6 +89,23 @@ public abstract class Piece {
         validMoves.put(MoveType.ATTACK, attackmoves);
         return validMoves;
 
+    }
+
+    public HashMap<MoveType, ArrayList<Point>> getValidMoves(ArrayList<Point> validMoves) {
+        HashMap<MoveType, ArrayList<Point>> validMovesMap = new HashMap<>();
+        ArrayList<Point> emptyMoves = new ArrayList<>();
+        ArrayList<Point> attackMoves = new ArrayList<>();
+        Piece[][] board = this.boardPanel.board;
+        for (Point move : validMoves) {
+            if (board[move.x][move.y].type != PieceType.EMPTY && board[move.x][move.y].color != this.color) {
+                attackMoves.add(move);
+            } else {
+                emptyMoves.add(move);
+            }
+        }
+        validMovesMap.put(MoveType.EMPTY, emptyMoves);
+        validMovesMap.put(MoveType.ATTACK, attackMoves);
+        return validMovesMap;
     }
 
     protected boolean commonIsValid(int targetRow, int targetCol) {

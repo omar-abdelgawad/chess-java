@@ -8,8 +8,6 @@ import java.util.HashMap;
 
 import javax.swing.JLabel;
 
-import pieces.Piece;
-import pieces.Piece.PieceType;
 import user_interface.BoardPanel;
 
 /**
@@ -24,10 +22,6 @@ public class BoardListener extends MouseAdapter {
         this.boardPanel = boardPanel;
     }
 
-    private Piece getPieceObject(int row, int col) {
-        return boardPanel.board[row][col];
-    }
-
     @Override
     public void mouseClicked(MouseEvent e) {
 
@@ -36,25 +30,34 @@ public class BoardListener extends MouseAdapter {
         if (clickedComponent instanceof JLabel) {
             int row = boardPanel.getComponentZOrder(clickedComponent) / boardPanel.cols;
             int col = boardPanel.getComponentZOrder(clickedComponent) % boardPanel.cols;
-            // System.out.println(row + " " + col);
 
             if (firstClickRow == -1 && firstClickCol == -1) {
-                if (boardPanel.board[row][col].type == PieceType.EMPTY) {
+                if (boardPanel.board[row][col].color != boardPanel.turn) {
+                    System.out.println("It is currently " + boardPanel.turn + "'s turn " + "can't play with "
+                            + boardPanel.board[row][col].color + " " + "pieces");
                     return;
                 }
                 firstClickRow = row;
                 firstClickCol = col;
-                // FOR TESTING PURPOSES ONLY (HIGHLIGHTING LEGAL MOVES)
-                // boardPanel.setLegalMoveCoordinates(legalMoveCoordinates);
-                // for (Point point : getPieceName(row, col).getValidMovesList()) {
-                // // System.out.println(point);
-                // }
-                boardPanel.setLegalMoveCoordinates(getPieceObject(row, col).getValidMoves());
+                boardPanel.setLegalMoveCoordinates(boardPanel.board[row][col].getValidMoves());
             } else {
-                boardPanel.eatPieces(firstClickRow, firstClickCol, row, col);
-                firstClickRow = -1;
-                firstClickCol = -1;
-                boardPanel.setLegalMoveCoordinates(new HashMap<>());
+                // if the second click is on the same color, reset the first click
+                if (boardPanel.board[row][col].color == boardPanel.board[firstClickRow][firstClickCol].color) {
+                    firstClickRow = row;
+                    firstClickCol = col;
+                    boardPanel.setLegalMoveCoordinates(boardPanel.board[row][col].getValidMoves());
+                } else {
+                    // make sure the move is inside the legal moves
+                    if (!boardPanel.board[firstClickRow][firstClickCol].getValidMovesList()
+                            .contains(new Point(row, col))) {
+                        System.out.println("Illegal move, Please choose one of the highlighted moves");
+                    } else {
+                        boardPanel.eatPieces(firstClickRow, firstClickCol, row, col);
+                    }
+                    firstClickRow = -1;
+                    firstClickCol = -1;
+                    boardPanel.setLegalMoveCoordinates(new HashMap<>());
+                }
             }
         }
 
