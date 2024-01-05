@@ -8,18 +8,12 @@ import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Point;
-// import java.awt.event.MouseAdapter;
 import java.util.ArrayList;
 import java.util.HashMap;
-// import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
-// import java.awt.event.MouseEvent;
-
-// import utils.Pair;
 
 import pieces.EmptyPiece;
 import pieces.Piece;
@@ -42,9 +36,6 @@ public class BoardPanel extends JPanel {
     private JLabel[][] labels;
     private final HashMap<MoveType, ArrayList<Point>> legalMoveCoordinates = new HashMap<>();
 
-    // private PieceColor turn;
-    // private Piece selectedPiece;
-
     public BoardPanel() {
         setPreferredSize(new Dimension(cols * tileSize, rows * tileSize)); // size
         setBackground(Color.red);
@@ -52,12 +43,8 @@ public class BoardPanel extends JPanel {
         board = new Piece[rows][cols];
         labels = new JLabel[rows][cols];
         initialize_board();
-        drawBoard();
+        drawBoardLabels();
         this.addMouseListener(new BoardListener(this));
-    }
-
-    public Piece getPiece(int row, int col) {
-        return board[row][col];
     }
 
     private int getLinearIndex(int row, int col) {
@@ -75,7 +62,7 @@ public class BoardPanel extends JPanel {
         if (firstIndex < 0 || firstIndex >= rows * cols || secondIndex < 0 || secondIndex >= rows * cols) {
             throw new IndexOutOfBoundsException();
         } else if (firstIndex == secondIndex) {
-            System.out.println("firstIndex == secondIndex");
+            System.out.println("Throwing exception because piece can't eat itself");
             throw new IllegalArgumentException();
         }
         Component first = getComponent(firstIndex);
@@ -130,7 +117,7 @@ public class BoardPanel extends JPanel {
 
     }
 
-    private void drawBoard() {
+    private void drawBoardLabels() {
         // removeAll();
         for (int r = 0; r < rows; r++) {
             for (int c = 0; c < cols; c++) {
@@ -152,10 +139,10 @@ public class BoardPanel extends JPanel {
         }
         g.setColor(color);
         for (Point point : legalMoves) {
-            int x = point.x * tileSize;
-            int y = point.y * tileSize;
+            int row = point.x * tileSize;
+            int col = point.y * tileSize;
 
-            g.fillRect(x, y, tileSize, tileSize);
+            g.fillRect(col, row, tileSize, tileSize);
         }
     }
 

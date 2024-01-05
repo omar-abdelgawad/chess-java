@@ -4,9 +4,7 @@ import java.awt.Component;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import javax.swing.JLabel;
 
@@ -26,7 +24,7 @@ public class BoardListener extends MouseAdapter {
         this.boardPanel = boardPanel;
     }
 
-    private Piece getPieceName(int row, int col) {
+    private Piece getPieceObject(int row, int col) {
         return boardPanel.board[row][col];
     }
 
@@ -48,10 +46,10 @@ public class BoardListener extends MouseAdapter {
                 firstClickCol = col;
                 // FOR TESTING PURPOSES ONLY (HIGHLIGHTING LEGAL MOVES)
                 // boardPanel.setLegalMoveCoordinates(legalMoveCoordinates);
-                for (Point point : getPieceName(row, col).getValidMovesList()) {
-                    // System.out.println(point);
-                }
-                boardPanel.setLegalMoveCoordinates(getPieceName(row, col).getValidMoves());
+                // for (Point point : getPieceName(row, col).getValidMovesList()) {
+                // // System.out.println(point);
+                // }
+                boardPanel.setLegalMoveCoordinates(getPieceObject(row, col).getValidMoves());
             } else {
                 boardPanel.eatPieces(firstClickRow, firstClickCol, row, col);
                 firstClickRow = -1;

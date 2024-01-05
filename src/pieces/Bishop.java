@@ -13,35 +13,30 @@ public class Bishop extends Piece {
     }
 
     public boolean isValidMove(int targetRow, int targetCol) {
-        // Piece[][] board = this.boardPanel.board;
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
-                // // if same row or same or same col return false
-                // if (this.row == targetRow || this.col == targetCol)
-                // return false;
-                // // if same color return false
-                // if (board[targetRow][targetCol].color == this.color) {
-                // return false;
-                // }
-
-                // if not in same diagonal return false
-                if (this.row + this.col != targetRow + targetCol && this.row - this.col != targetRow - targetCol) {
-                    return false;
-                }
-
-                // if no movement return false
-                if (this.row == targetRow && this.col == targetCol) {
-                    return false;
-                }
-                
-                // if there is a piece in the way return false
-                if (isBlocked(this.row, this.col, targetRow, targetCol)) {
-                    return false;
-                }
-
-            }
-        }
+        Piece[][] board = this.boardPanel.board;
         return true;
+        // for (int i = 0; i < 8; i++) {
+        // for (int j = 0; j < 8; j++) {
+
+        // // if not in same diagonal return false
+        // if (this.row + this.col != targetRow + targetCol && this.row - this.col !=
+        // targetRow - targetCol) {
+        // return false;
+        // }
+
+        // // if no movement return false
+        // if (this.row == targetRow && this.col == targetCol) {
+        // return false;
+        // }
+
+        // // if there is a piece in the way return false
+        // if (isBlocked(this.row, this.col, targetRow, targetCol)) {
+        // return false;
+        // }
+
+        // }
+        // }
+        // return true;
     }
 
     public boolean isBlocked(int row, int col, int targetRow, int targetCol) {
