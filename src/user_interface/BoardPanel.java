@@ -185,12 +185,12 @@ public class BoardPanel extends JPanel {
 
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
-                g2.setColor((i + j) % 2 == 0 ? Color.white : Color.black);
+                g2.setColor((i + j) % 2 == 0 ? Color.lightGray : new Color(0, 100, 0));
                 g2.fillRect(i * tileSize, j * tileSize, tileSize, tileSize);
             }
         }
 
-        paintLegalEmptyMoves(g, Color.lightGray, legalMoveCoordinates.get(MoveType.EMPTY));
+        paintLegalEmptyMoves(g, Color.darkGray, legalMoveCoordinates.get(MoveType.EMPTY));
         paintLegalAttackMoves(g, Color.red, legalMoveCoordinates.get(MoveType.ATTACK));
     }
 }
