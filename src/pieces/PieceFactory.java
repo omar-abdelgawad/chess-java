@@ -9,22 +9,6 @@ import user_interface.BoardPanel;
  */
 
 public class PieceFactory {
-    {
-        // initialize all images with the following image paths
-        // res/tile/white/w_bishop_1x_ns.png
-        // res/tile/white/w_king_1x_ns.png
-        // res/tile/white/w_knight_1x_ns.png
-        // res/tile/white/w_pawn_1x_ns.png
-        // res/tile/white/w_queen_1x_ns.png
-        // res/tile/white/w_rook_1x_ns.png
-        // res/tile/black/b_bishop_1x_ns.png
-        // res/tile/black/b_king_1x_ns.png
-        // res/tile/black/b_knight_1x_ns.png
-        // res/tile/black/b_pawn_1x_ns.png
-        // res/tile/black/b_queen_1x_ns.png
-        // res/tile/black/b_rook_1x_ns.png
-    }
-    // scale all of the images in the future
     private static ImageIcon w_bishop = new ImageIcon("res/tile/white/w_bishop_1x_ns.png");
     private static ImageIcon w_king = new ImageIcon("res/tile/white/w_king_1x_ns.png");
     private static ImageIcon w_knight = new ImageIcon("res/tile/white/w_knight_1x_ns.png");

@@ -15,7 +15,6 @@ public class Rook extends Piece {
     }
 
     public boolean isValidMove(int targetRow, int targetCol) {
-        Piece[][] board = this.boardPanel.board;
         if (!commonIsValid(targetRow, targetCol)) {
             return false;
         }
