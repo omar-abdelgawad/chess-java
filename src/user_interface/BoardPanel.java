@@ -22,6 +22,7 @@ import pieces.Piece.MoveType;
 import pieces.Piece.PieceColor;
 import pieces.Piece.PieceType;
 import utils.MoveSoundPlayer;
+import utils.MoveSoundPlayer.SoundType;
 import listeners.BoardListener;
 
 /**
@@ -96,14 +97,18 @@ public class BoardPanel extends JPanel {
      * @param col2 col of piece to be eaten
      */
     public void eatPieces(int row1, int col1, int row2, int col2) {
+        boolean isCapture = board[row2][col2].type != PieceType.EMPTY;
         board[row2][col2] = board[row1][col1];
         board[row2][col2].row = row2;
         board[row2][col2].col = col2;
         board[row2][col2].hasMoved = true;
         board[row1][col1] = new EmptyPiece(row1, col1, PieceType.EMPTY);
         eatPiecesLabel(getLinearIndex(row1, col1), getLinearIndex(row2, col2));
-        System.out.println("Playing move sound");
-        this.moveSoundPlayer.play();
+        if (isCapture) {
+            this.moveSoundPlayer.play(SoundType.CAPTURE);
+        } else {
+            this.moveSoundPlayer.play(SoundType.MOVE);
+        }
         switchTurn();
     }
 

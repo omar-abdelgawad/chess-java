@@ -13,5 +13,4 @@ public class ChessGame {
         chessFrame = new ChessFrame();
         startFrame = new StartFrame(chessFrame);
     }
-
 }

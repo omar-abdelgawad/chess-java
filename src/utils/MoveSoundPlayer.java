@@ -5,17 +5,28 @@ import java.io.File;
 import java.io.IOException;
 
 public class MoveSoundPlayer {
+    public enum SoundType {
+        MOVE, CAPTURE;
+    }
+
     private static MoveSoundPlayer instance = null;
     private static final String audioPath = "res/sounds/Move.wav";
+    private static final String capturePath = "res/sounds/Capture.wav";
     private AudioInputStream audioStream;
-    private Clip clip;
+    private AudioInputStream audioStream2;
+    private Clip clipMove;
+    private Clip clipCapture;
 
     private MoveSoundPlayer() {
-        File audioFile = new File(audioPath);
+        File audioFile1 = new File(audioPath);
+        File audioFile2 = new File(capturePath);
         try {
-            audioStream = AudioSystem.getAudioInputStream(audioFile);
-            clip = AudioSystem.getClip();
-            clip.open(audioStream);
+            audioStream = AudioSystem.getAudioInputStream(audioFile1);
+            audioStream2 = AudioSystem.getAudioInputStream(audioFile2);
+            clipMove = AudioSystem.getClip();
+            clipCapture = AudioSystem.getClip();
+            clipMove.open(audioStream);
+            clipCapture.open(audioStream2);
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
             e.printStackTrace();
         }
@@ -29,21 +40,23 @@ public class MoveSoundPlayer {
     }
 
     // play the sound
-    public void play() {
-        try {
-            clip.start();
-            // Thread.sleep(clip.getMicrosecondLength() / 1000); // probably don't need this
-            clip.setFramePosition(0);
-        } catch (Exception e) {
-            e.printStackTrace();
+    public void play(SoundType soundType) {
+        if (SoundType.MOVE == soundType) {
+            clipMove.start();
+            clipMove.setFramePosition(0);
+        } else {
+            clipCapture.start();
+            clipCapture.setFramePosition(0);
         }
     }
 
     // Destroy the clip and audio stream
     public void close() {
-        clip.close();
+        clipMove.close();
+        clipCapture.close();
         try {
             audioStream.close();
+            audioStream2.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
