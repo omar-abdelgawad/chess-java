@@ -20,8 +20,8 @@ import java.awt.BorderLayout;
  */
 public class Clock {
 
-    TimerPanel timer1;
-    TimerPanel timer2;
+    public TimerPanel timer1;
+    public TimerPanel timer2;
 
     public Clock() {
         this.timer1 = new TimerPanel("Black", 600);
