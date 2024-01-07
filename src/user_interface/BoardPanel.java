@@ -21,7 +21,7 @@ import pieces.PieceFactory;
 import pieces.Piece.MoveType;
 import pieces.Piece.PieceColor;
 import pieces.Piece.PieceType;
-
+import utils.MoveSoundPlayer;
 import listeners.BoardListener;
 
 /**
@@ -38,14 +38,16 @@ public class BoardPanel extends JPanel {
     public PieceColor turn = PieceColor.WHITE;
     private Clock gameClock;
     private boolean gameStarted = false;
+    private MoveSoundPlayer moveSoundPlayer;
 
-    public BoardPanel(Clock gameClock) {
+    public BoardPanel(Clock gameClock, MoveSoundPlayer moveSoundPlayer) {
         setPreferredSize(new Dimension(cols * tileSize, rows * tileSize)); // size
         setBackground(Color.red);
         setLayout(new GridLayout(rows, cols));
         board = new Piece[rows][cols];
         labels = new JLabel[rows][cols];
         this.gameClock = gameClock;
+        this.moveSoundPlayer = moveSoundPlayer;
         initialize_board();
         drawBoardLabels();
         this.addMouseListener(new BoardListener(this));
@@ -100,6 +102,8 @@ public class BoardPanel extends JPanel {
         board[row2][col2].hasMoved = true;
         board[row1][col1] = new EmptyPiece(row1, col1, PieceType.EMPTY);
         eatPiecesLabel(getLinearIndex(row1, col1), getLinearIndex(row2, col2));
+        System.out.println("Playing move sound");
+        this.moveSoundPlayer.play();
         switchTurn();
     }
 

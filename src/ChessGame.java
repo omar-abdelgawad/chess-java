@@ -1,16 +1,17 @@
 import user_interface.ChessFrame;
+import user_interface.StartFrame;
 
 public class ChessGame {
+    private ChessFrame chessFrame;
+    private StartFrame startFrame;
+
     public static void main(String[] args) throws Exception {
         ChessGame game = new ChessGame();
-        game.run();
     }
 
     ChessGame() {
-        new ChessFrame();
+        chessFrame = new ChessFrame();
+        startFrame = new StartFrame(chessFrame);
     }
 
-    void run() {
-        ;
-    }
 }

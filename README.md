@@ -18,7 +18,7 @@ The `JAVA PROJECTS` view allows you to manage your dependencies. More details ca
 - [x] Design the class structure.
 - [x] Develop the GUI using Swing and Awt.
 - [x] Package into a jar file.
-- [ ] Implement move sound effects.
+- [x] Implement move sound effects.
 - [ ] Implement all Chess rules.
 - [ ] Document the project in ReadMe and GitHub pages.
 - [ ] Write Unit tests using a testing framework.
