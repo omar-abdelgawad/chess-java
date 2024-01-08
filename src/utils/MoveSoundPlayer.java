@@ -39,7 +39,6 @@ public class MoveSoundPlayer {
         return instance;
     }
 
-    // play the sound
     public void play(SoundType soundType) {
         if (SoundType.MOVE == soundType) {
             clipMove.start();
@@ -50,7 +49,6 @@ public class MoveSoundPlayer {
         }
     }
 
-    // Destroy the clip and audio stream
     public void close() {
         clipMove.close();
         clipCapture.close();
