@@ -7,7 +7,6 @@ import java.awt.GridBagLayout;
 import javax.swing.JFrame;
 
 import utils.MoveSoundPlayer;
-import utils.MoveSoundPlayer.SoundType;
 
 /**
  * ChessFrame class that extends JFrame
