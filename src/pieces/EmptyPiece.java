@@ -8,6 +8,7 @@ public class EmptyPiece extends Piece {
         super(row, col, type);
     }
 
+    @Override
     public boolean isValidMove(int row, int col) {
         return false;
     }

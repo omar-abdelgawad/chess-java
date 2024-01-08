@@ -13,6 +13,7 @@ public class King extends Piece {
         super(row, col, color, boardPanel, type, icon);
     }
 
+    @Override
     public boolean isValidMove(int targetRow, int targetCol) {
         Piece[][] board = this.boardPanel.board;
         if (!commonIsValid(targetRow, targetCol)) {

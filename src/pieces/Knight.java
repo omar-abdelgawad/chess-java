@@ -12,6 +12,7 @@ public class Knight extends Piece {
         super(row, col, color, boardPanel, type, icon);
     }
 
+    @Override
     public boolean isValidMove(int row, int col) {
         if (!commonIsValid(row, col)) {
             return false;

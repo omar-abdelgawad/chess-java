@@ -14,6 +14,7 @@ public class Rook extends Piece {
         super(row, col, color, boardPanel, type, icon);
     }
 
+    @Override
     public boolean isValidMove(int targetRow, int targetCol) {
         if (!commonIsValid(targetRow, targetCol)) {
             return false;
