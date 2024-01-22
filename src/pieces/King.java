@@ -9,8 +9,8 @@ import user_interface.BoardPanel;
  * TODO: implement castling
  */
 public class King extends Piece {
-    public King(int row, int col, PieceColor color, BoardPanel boardPanel, PieceType type, ImageIcon icon) {
-        super(row, col, color, boardPanel, type, icon);
+    public King(int row, int col, PieceColor color, BoardPanel boardPanel, ImageIcon icon) {
+        super(row, col, color, boardPanel, icon);
     }
 
     @Override
@@ -27,9 +27,9 @@ public class King extends Piece {
                     Piece lowerRightPiece = board[board.length - 1][board[0].length - 1];
                     Piece temPiece = board[board.length - 1][board[0].length - 2];
                     Piece temPiece2 = board[board.length - 1][board[0].length - 3];
-                    if (lowerRightPiece.type == PieceType.ROOK
+                    if (lowerRightPiece instanceof Rook
                             && lowerRightPiece.color == PieceColor.WHITE && !lowerRightPiece.hasMoved
-                            && temPiece.type == PieceType.EMPTY && temPiece2.type == PieceType.EMPTY) {
+                            && temPiece instanceof EmptyPiece && temPiece2 instanceof EmptyPiece) {
                         return true;
                     }
                 }
@@ -39,10 +39,10 @@ public class King extends Piece {
                     Piece temPiece3 = board[board.length - 1][1];
                     Piece temPiece4 = board[board.length - 1][2];
                     Piece temPiece5 = board[board.length - 1][3];
-                    if (lowerLeftPiece.type == PieceType.ROOK
+                    if (lowerLeftPiece instanceof Rook
                             && lowerLeftPiece.color == PieceColor.WHITE && !lowerLeftPiece.hasMoved
-                            && temPiece3.type == PieceType.EMPTY && temPiece4.type == PieceType.EMPTY
-                            && temPiece5.type == PieceType.EMPTY) {
+                            && temPiece3 instanceof EmptyPiece && temPiece4 instanceof EmptyPiece
+                            && temPiece5 instanceof EmptyPiece) {
                         return true;
                     }
                 }
@@ -52,9 +52,9 @@ public class King extends Piece {
                     Piece upperRightPiece = board[0][board[0].length - 1];
                     Piece temPiece = board[0][board[0].length - 2];
                     Piece temPiece2 = board[0][board[0].length - 3];
-                    if (upperRightPiece.type == PieceType.ROOK
+                    if (upperRightPiece instanceof Rook
                             && upperRightPiece.color == PieceColor.BLACK && !upperRightPiece.hasMoved
-                            && temPiece.type == PieceType.EMPTY && temPiece2.type == PieceType.EMPTY) {
+                            && temPiece instanceof EmptyPiece && temPiece2 instanceof EmptyPiece) {
                         return true;
                     }
                 } else if (targetRow == this.row && targetCol - this.col == -2) {
@@ -62,10 +62,10 @@ public class King extends Piece {
                     Piece temPiece3 = board[0][1];
                     Piece temPiece4 = board[0][2];
                     Piece temPiece5 = board[0][3];
-                    if (upperLeftPiece.type == PieceType.ROOK
+                    if (upperLeftPiece instanceof Rook
                             && upperLeftPiece.color == PieceColor.BLACK && !upperLeftPiece.hasMoved
-                            && temPiece3.type == PieceType.EMPTY && temPiece4.type == PieceType.EMPTY
-                            && temPiece5.type == PieceType.EMPTY) {
+                            && temPiece3 instanceof EmptyPiece && temPiece4 instanceof EmptyPiece
+                            && temPiece5 instanceof EmptyPiece) {
                         return true;
                     }
                 }

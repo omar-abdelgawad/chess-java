@@ -8,8 +8,8 @@ import user_interface.BoardPanel;
  * Knight
  */
 public class Knight extends Piece {
-    public Knight(int row, int col, PieceColor color, BoardPanel boardPanel, PieceType type, ImageIcon icon) {
-        super(row, col, color, boardPanel, type, icon);
+    public Knight(int row, int col, PieceColor color, BoardPanel boardPanel, ImageIcon icon) {
+        super(row, col, color, boardPanel, icon);
     }
 
     @Override

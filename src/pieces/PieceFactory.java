@@ -27,24 +27,24 @@ public class PieceFactory {
         switch (type) {
             case PAWN:
                 ImageIcon b_or_w_pawn = color == Piece.PieceColor.WHITE ? w_pawn : b_pawn;
-                return new Pawn(row, col, color, boardPanel, type, b_or_w_pawn);
+                return new Pawn(row, col, color, boardPanel, b_or_w_pawn);
             case ROOK:
                 ImageIcon b_or_w_rook = color == Piece.PieceColor.WHITE ? w_rook : b_rook;
-                return new Rook(row, col, color, boardPanel, type, b_or_w_rook);
+                return new Rook(row, col, color, boardPanel, b_or_w_rook);
             case KNIGHT:
                 ImageIcon b_or_w_knight = color == Piece.PieceColor.WHITE ? w_knight : b_knight;
-                return new Knight(row, col, color, boardPanel, type, b_or_w_knight);
+                return new Knight(row, col, color, boardPanel, b_or_w_knight);
             case BISHOP:
                 ImageIcon b_or_w_bishop = color == Piece.PieceColor.WHITE ? w_bishop : b_bishop;
-                return new Bishop(row, col, color, boardPanel, type, b_or_w_bishop);
+                return new Bishop(row, col, color, boardPanel, b_or_w_bishop);
             case QUEEN:
                 ImageIcon b_or_w_queen = color == Piece.PieceColor.WHITE ? w_queen : b_queen;
-                return new Queen(row, col, color, boardPanel, type, b_or_w_queen);
+                return new Queen(row, col, color, boardPanel, b_or_w_queen);
             case KING:
                 ImageIcon b_or_w_king = color == Piece.PieceColor.WHITE ? w_king : b_king;
-                return new King(row, col, color, boardPanel, type, b_or_w_king);
+                return new King(row, col, color, boardPanel, b_or_w_king);
             case EMPTY:
-                return new EmptyPiece(row, col, type);
+                return new EmptyPiece(row, col);
             default:
                 throw new IllegalArgumentException("Invalid PieceType");
 

@@ -8,8 +8,8 @@ import user_interface.BoardPanel;
  * Bishop class
  */
 public class Bishop extends Piece {
-    public Bishop(int row, int col, PieceColor color, BoardPanel boardPanel, PieceType type, ImageIcon icon) {
-        super(row, col, color, boardPanel, type, icon);
+    public Bishop(int row, int col, PieceColor color, BoardPanel boardPanel, ImageIcon icon) {
+        super(row, col, color, boardPanel, icon);
     }
 
     @Override
@@ -33,13 +33,13 @@ public class Bishop extends Piece {
         if (targetRow < this.row) {
             if (targetCol < this.col) {
                 for (int i = this.row - 1, j = this.col - 1; i > targetRow && j > targetCol; i--, j--) {
-                    if (board[i][j].type != PieceType.EMPTY) {
+                    if (!(board[i][j] instanceof EmptyPiece)) {
                         return true;
                     }
                 }
             } else if (targetCol > this.col) {
                 for (int i = this.row - 1, j = this.col + 1; i > targetRow && j < targetCol; i--, j++) {
-                    if (board[i][j].type != PieceType.EMPTY) {
+                    if (!(board[i][j] instanceof EmptyPiece)) {
                         return true;
                     }
                 }
@@ -47,13 +47,13 @@ public class Bishop extends Piece {
         } else {
             if (targetCol < this.col) {
                 for (int i = this.row + 1, j = this.col - 1; i < targetRow && j > targetCol; i++, j--) {
-                    if (board[i][j].type != PieceType.EMPTY) {
+                    if (!(board[i][j] instanceof EmptyPiece)) {
                         return true;
                     }
                 }
             } else if (targetCol > this.col) {
                 for (int i = this.row + 1, j = this.col + 1; i < targetRow && j < targetCol; i++, j++) {
-                    if (board[i][j].type != PieceType.EMPTY) {
+                    if (!(board[i][j] instanceof EmptyPiece)) {
                         return true;
                     }
                 }

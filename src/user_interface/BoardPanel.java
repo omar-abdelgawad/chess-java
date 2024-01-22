@@ -97,12 +97,12 @@ public class BoardPanel extends JPanel {
      * @param col2 col of piece to be eaten
      */
     public void eatPieces(int row1, int col1, int row2, int col2) {
-        boolean isCapture = board[row2][col2].type != PieceType.EMPTY;
+        boolean isCapture = !(board[row2][col2] instanceof EmptyPiece);
         board[row2][col2] = board[row1][col1];
         board[row2][col2].row = row2;
         board[row2][col2].col = col2;
         board[row2][col2].hasMoved = true;
-        board[row1][col1] = new EmptyPiece(row1, col1, PieceType.EMPTY);
+        board[row1][col1] = new EmptyPiece(row1, col1);
         eatPiecesLabel(getLinearIndex(row1, col1), getLinearIndex(row2, col2));
         if (isCapture) {
             this.moveSoundPlayer.play(SoundType.CAPTURE);

@@ -10,8 +10,8 @@ import user_interface.BoardPanel;
  * TODO: implement long castling
  */
 public class Rook extends Piece {
-    public Rook(int row, int col, PieceColor color, BoardPanel boardPanel, PieceType type, ImageIcon icon) {
-        super(row, col, color, boardPanel, type, icon);
+    public Rook(int row, int col, PieceColor color, BoardPanel boardPanel, ImageIcon icon) {
+        super(row, col, color, boardPanel, icon);
     }
 
     @Override
@@ -33,13 +33,13 @@ public class Rook extends Piece {
         if (targetRow == this.row) {
             if (targetCol < this.col) {
                 for (int i = this.col - 1; i > targetCol; i--) {
-                    if (board[targetRow][i].type != PieceType.EMPTY) {
+                    if (!(board[targetRow][i] instanceof EmptyPiece)) {
                         return true;
                     }
                 }
             } else if (targetCol > this.col) {
                 for (int i = this.col + 1; i < targetCol; i++) {
-                    if (board[targetRow][i].type != PieceType.EMPTY) {
+                    if (!(board[targetRow][i] instanceof EmptyPiece)) {
                         return true;
                     }
                 }
@@ -47,13 +47,13 @@ public class Rook extends Piece {
         } else {
             if (targetRow < this.row) {
                 for (int i = this.row - 1; i > targetRow; i--) {
-                    if (board[i][targetCol].type != PieceType.EMPTY) {
+                    if (!(board[i][targetCol] instanceof EmptyPiece)) {
                         return true;
                     }
                 }
             } else if (targetRow > this.row) {
                 for (int i = this.row + 1; i < targetRow; i++) {
-                    if (board[i][targetCol].type != PieceType.EMPTY) {
+                    if (!(board[i][targetCol] instanceof EmptyPiece)) {
                         return true;
                     }
                 }

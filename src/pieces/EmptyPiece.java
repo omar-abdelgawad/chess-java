@@ -4,8 +4,8 @@ package pieces;
  * EmptyPiece
  */
 public class EmptyPiece extends Piece {
-    public EmptyPiece(int row, int col, PieceType type) {
-        super(row, col, type);
+    public EmptyPiece(int row, int col) {
+        super(row, col);
     }
 
     @Override

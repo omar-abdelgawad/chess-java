@@ -36,24 +36,21 @@ public abstract class Piece {
     public int row;
     public int col;
     public PieceColor color;
-    public PieceType type;
     public BoardPanel boardPanel;
     public boolean hasMoved = false;
     public ImageIcon icon;
 
-    public Piece(int row, int col, PieceColor color, BoardPanel boardPanel, PieceType type, ImageIcon icon) {
+    public Piece(int row, int col, PieceColor color, BoardPanel boardPanel, ImageIcon icon) {
         this.row = row;
         this.col = col;
         this.color = color;
         this.boardPanel = boardPanel;
-        this.type = type;
         this.icon = icon;
     }
 
-    public Piece(int row, int col, PieceType type) {
+    public Piece(int row, int col) {
         this.row = row;
         this.col = col;
-        this.type = type;
     }
 
     public ArrayList<Point> getValidMovesList() {
@@ -76,7 +73,7 @@ public abstract class Piece {
         ArrayList<Point> attackmoves = new ArrayList<>();
 
         for (Point Move : getValidMovesList()) {
-            if (board[Move.x][Move.y].type != PieceType.EMPTY && board[Move.x][Move.y].color != this.color) {
+            if (!(board[Move.x][Move.y] instanceof EmptyPiece) && board[Move.x][Move.y].color != this.color) {
                 attackmoves.add(Move);
                 System.out.println("Attack Move: " + Move.x + ", " + Move.y);
             } else {
@@ -97,7 +94,7 @@ public abstract class Piece {
         ArrayList<Point> attackMoves = new ArrayList<>();
         Piece[][] board = this.boardPanel.board;
         for (Point move : validMoves) {
-            if (board[move.x][move.y].type != PieceType.EMPTY && board[move.x][move.y].color != this.color) {
+            if (!(board[move.x][move.y] instanceof EmptyPiece) && board[move.x][move.y].color != this.color) {
                 attackMoves.add(move);
             } else {
                 emptyMoves.add(move);
@@ -113,7 +110,7 @@ public abstract class Piece {
         if (this.row == targetRow && this.col == targetCol) {
             return false;
         }
-        if (board[targetRow][targetCol].type != PieceType.EMPTY && board[targetRow][targetCol].color == this.color) {
+        if (!(board[targetRow][targetCol] instanceof EmptyPiece) && board[targetRow][targetCol].color == this.color) {
             return false;
         }
         return true;
